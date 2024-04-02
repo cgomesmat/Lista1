@@ -1,0 +1,372 @@
+Nome: Carlos Alexandre Gomes da Silva
+Matricula: 20220032813
+
+Questao 1: 
+O trecho de programa é:
+
+int i=3,j=5;
+int *p, *q;
+p = &i;
+q = &j;
+
+<resposta da questao 1>
+
+a)p == &i 
+Essa sentença é verdadeira. De fato, a variável i é inteira enquanto a variável p é um ponteiro para inteiro (portanto recebe um endereço onde está armazenado um inteiro). Na terceira linha do trecho do programa dado o ponteiro p recebe exatamente o endereço da variável inteira i através do operador "&" posto na frente da variável i, o que faz retornar exatemente o endereço onde está guardada a variável i na memória.
+
+b)Como p e q são ponteiros para inteiros, no corpo do programa *p e *q  recuperam os conteúdos dos endereços para os quais os ponteiros p e q apontam. Assim, 
+*p-*q=(conteúdo do endereço para onde p aponta) - (conteúdo do endereço para onde p aponta). Ora, como nas duas últimas linhas temos p=&i  e  q=&j, segue que
+*p - *q = 3-5=-2.
+
+c)Na liguagem C, sabemos que "&" é o opreador endereço, ou seja, quando colocamos o símbolo "&" antes de uma variável, o retorno é o endereço de memória onde aquela variável está guardada. por outro lado, o operador "*" quando colocando antes de uma variável no corpo  do programa oferece como retorno o conteúdo daquela variável.  Assim, **&p é interpretado da seguinte forma: &p retorna o endereço de onde está guardado a variável do tipo ponteiro para inteiro "p". Portanto *&p retorna o conteúdo  contido no endereço de memória &p, que é o endereço para o qual p aponta. Por fim, **&p nos oferecerá como resposta o conteúdo de p, ou seja, o mesmo que *p que no caso é o valor de i, que é 3.
+
+d)Como *p e *q correspondem aos conteúdos dos ponteiros para inteiros p e q , segue que  expressão  3 - *p/(*q) + 7 corresponde a  3 - 3/5 + 7=3-0+7=10.
+
+
+---------------------------
+Questao 2: 
+
+Mostre o que será impresso por programa supondo que a variável i ocupa o endereço 4094 na
+memória e que nessa arquitetura os inteiros possuem 2 bytes de tamanho.
+
+main(){
+int i=5, *p;
+p = &i;
+printf("%p %p %d %d %d %d\n", p, p+1, *p+2, **&p, 3**p, **&p+4);
+}
+
+<resposta da questao 2>
+
+Como p é um ponteiro para inteiros e na terceira linha do programa p recebe o endereço da variável i, segue que na impressão no lugar onde aparece o p aparecerá 4094, que é o que p guarda nesse momento (o endereço da variável i). 
+Como nessa arquitetura os inteiros possuem 2 bytes, no lugar onde aparece p+1 (no comando printf) será impresso na tela  o valor 4094+2=4096. 
+
+No lugar de *p+2 será impresso o conteúdo de p adicionado de 2, ou seja 5+2=7, visto que *p=5 (pois p aponta para o endereço da variável i, onde está guardado o conteúdo 5). 
+
+No item (c) da questão 1, já discutimos que **&p corresponde a *p, ou seja, o conteúdo do ponteiro p, que no caso é 5.
+
+O comando 3**p significa 3 vezes o conteúdo de p, ou seja 3 x 5 = 15 (o primeiro asterisco representa a operação de multiplicação, já o segundo representa a exibição do conteúdo do endereço para onde o ponteiro p aponta). 
+
+Por fim, **&p+4 corresponde a soma entre o conteúdo do ponteiro p (pois **&p=*p=5) e o número 4, ou seja, **&p+4=5+4=9.
+
+---------------------------
+
+Questao 3: 
+
+Se i e j são variáveis inteiras e p e q ponteiros para int, quais das seguintes expressões de
+atribuição são ilegais? Justifique.
+
+p = &i;
+*q = &j;
+p = &*&i;
+i = (*&)j;
+i = *&j;
+i = *&*&j;
+q = *p;
+i = (*p)++ + *q;
+
+<resposta da questao 3>
+
+---------------------------
+
+Questao 4: 
+
+
+Determine o que será mostrado pelo seguinte programa (compile-o, execute-o e verifique se
+foram obtidas as respostas esperadas, justificando o porque de cada uma).
+
+#include <stdio.h>
+int main() {
+int valor;
+int *p1;
+float temp;
+float *p2;
+char aux;
+char *nome = "Ponteiros";
+char *p3;
+int idade;
+int vetor[3];
+int *p4;
+int *p5;
+/* (a) */
+valor = 10;
+p1 = &valor;
+*p1 = 20;
+printf("%d \n", valor);
+/* (b) */
+temp = 26.5;
+p2 = &temp;
+*p2 = 29.0;
+printf("%.1f \n", temp);
+/* (c) */
+p3 = &nome[0];
+aux = *p3;
+printf("%c \n", aux);
+/* (d) */
+p3 = &nome[4];
+aux = *p3;
+printf("%c \n", aux);
+/* (e) */
+p3 = nome;
+printf("%c \n", *p3);
+/* (f) */
+p3 = p3 + 4;
+printf("%c \n", *p3);
+/* (g) */
+p3--;
+printf("%c \n", *p3);
+/* (h) */
+vetor[0] = 31;
+vetor[1] = 45;
+vetor[2] = 27;
+p4 = vetor;
+idade = *p4;
+printf("%d \n", idade);
+/* (i) */
+p5 = p4 + 1;
+idade = *p5;
+printf("%d \n", idade);
+/* (j) */
+p4 = p5 + 1;
+idade = *p4;
+printf("%d \n", idade);
+/* (l) */
+p4 = p4 - 2;
+idade = *p4;
+printf("%d \n", idade);
+/* (m) */
+p5 = &vetor[2] - 1;
+printf("%d \n", *p5);
+/* (n) */
+p5++;
+printf("%d \n", *p5);
+return(0);
+}
+
+<resposta da questao 3>
+
+O resultado da execução do programa foi o seguinte:
+
+20 
+29.0 
+P 
+e 
+P 
+e 
+t 
+31 
+45 
+27 
+31 
+45 
+27 
+
+Vamos à análise dos resultados.
+
+---------------------------
+
+Questao 5:
+
+Determine o que será mostrado pelo seguinte programa (compile-o, execute-o e explique se
+foram obtidas as respostas esperadas).
+
+
+<resposta da questao 5>
+
+O resultado da execução do programa foi o seguinte:
+
+contador/valor/valor/endereco/endereco
+i = 0 vet[0] = 1.1 *(f + 0) = 1.1 &vet[0] = C2497CC0 (f + 0) = C2497CC0
+i = 1 vet[1] = 2.2 *(f + 1) = 2.2 &vet[1] = C2497CC4 (f + 1) = C2497CC4
+i = 2 vet[2] = 3.3 *(f + 2) = 3.3 &vet[2] = C2497CC8 (f + 2) = C2497CC8
+i = 3 vet[3] = 4.4 *(f + 3) = 4.4 &vet[3] = C2497CCC (f + 3) = C2497CCC
+i = 4 vet[4] = 5.5 *(f + 4) = 5.5 &vet[4] = C2497CD0 (f + 4) = C2497CD0
+
+---------------------------
+
+Questao 6:
+Assumindo que pulo[] é um vetor do tipo int, quais das seguintes expressões referenciam o
+valor do terceiro elemento do vetor?
+
+a) *(pulo + 2);
+b) *(pulo + 4);
+c) pulo + 4;
+d) pulo + 2;
+
+<resposta da questao 6>
+
+---------------------------
+
+Questao 7:
+
+Considerando a declaração
+int mat[4], *p, x;
+quais das seguintes expressões são válidas? Justifique.
+
+p = mat + 1;
+p = mat;
+p = mat;
+x = (*mat);
+
+
+
+<resposta da questao 7>
+
+---------------------------
+
+Questao 8:
+
+O que fazem os seguintes programas em C?
+
+PROGRAMA 1
+
+int main(){
+int vet[] = {4, 9, 13};
+int i;
+for(i=0;i<3;i++){
+printf("%d ", *(vet+i));
+}
+
+PROGRAMA 2
+
+int main(){
+int vet[] = {4, 9, 13};
+int i;
+for(i=0;i<3;i++){
+printf("%X ",vet+i);
+}
+}
+
+<resposta da questao 8>
+
+---------------------------
+
+Questao 9:
+
+Qual será a saída do seguinte programa
+
+#include <stdio.h>
+struct teste{
+int x = 3;
+char nome[] = "jose";
+};
+main(){
+struct teste *s;
+printf("%d", s->x);
+printf("%s", s->name);
+}
+
+<resposta da questao 9>
+
+---------------------------
+
+Questao 10:
+
+Qual será a saída do seguinte programa
+
+#include <stdio.h>
+void main(){
+int const *x = 3;
+printf("%d", ++(*x));
+}
+
+<resposta da questao 10>
+
+---------------------------
+
+Questao 11:
+
+
+<resposta da questao 11>
+
+---------------------------
+
+Questao 12:
+<resposta da questao 12>
+
+---------------------------
+
+Questao 13:
+
+
+<resposta da questao 13>
+
+---------------------------
+
+Questao 14:
+
+<resposta da questao 14>
+
+---------------------------
+
+Questao 15:
+
+
+<resposta da questao 15>
+
+---------------------------
+
+Questao 16:
+
+
+<resposta da questao 16>
+
+---------------------------
+
+Questao 17:
+<resposta da questao 17>
+
+---------------------------
+
+Questao 18:
+
+
+<resposta da questao 18>
+
+---------------------------
+
+Questao 19:
+
+<resposta da questao 19>
+
+---------------------------
+
+Questao 20:
+
+
+<resposta da questao 20>
+
+---------------------------
+
+Questao 21:
+
+
+<resposta da questao 21>
+
+---------------------------
+
+Questao 22:
+<resposta da questao 22>
+
+---------------------------
+
+Questao 23:
+
+
+<resposta da questao 23>
+
+---------------------------
+
+Questao 24:
+
+<resposta da questao 24>
+
+---------------------------
+
+Questao 25:
+
+<resposta da questao 25>
+
+---------------------------
+
+
+
