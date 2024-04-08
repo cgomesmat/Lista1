@@ -2,6 +2,7 @@ Nome: Carlos Alexandre Gomes da Silva
 Matricula: 20220032813
 
 Questao 1: 
+
 O trecho de programa é:
 
 int i=3,j=5;
@@ -18,12 +19,13 @@ b)Como p e q são ponteiros para inteiros, no corpo do programa *p e *q  recuper
 *p-*q=(conteúdo do endereço para onde p aponta) - (conteúdo do endereço para onde p aponta). Ora, como nas duas últimas linhas temos p=&i  e  q=&j, segue que
 *p - *q = 3-5=-2.
 
-c)Na liguagem C, sabemos que "&" é o opreador endereço, ou seja, quando colocamos o símbolo "&" antes de uma variável, o retorno é o endereço de memória onde aquela variável está guardada. por outro lado, o operador "*" quando colocando antes de uma variável no corpo  do programa oferece como retorno o conteúdo daquela variável.  Assim, **&p é interpretado da seguinte forma: &p retorna o endereço de onde está guardado a variável do tipo ponteiro para inteiro "p". Portanto *&p retorna o conteúdo  contido no endereço de memória &p, que é o endereço para o qual p aponta. Por fim, **&p nos oferecerá como resposta o conteúdo de p, ou seja, o mesmo que *p que no caso é o valor de i, que é 3.
+c)Na liguagem C, sabemos que "&" é o operador endereço, ou seja, quando colocamos o símbolo "&" antes de uma variável, o retorno é o endereço de memória onde aquela variável está guardada. por outro lado, o operador "*" quando colocando antes de uma variável no corpo  do programa oferece como retorno o conteúdo daquela variável.  Assim, **&p é interpretado da seguinte forma: &p retorna o endereço de onde está guardado a variável do tipo ponteiro para inteiro "p". Portanto *&p retorna o conteúdo  contido no endereço de memória &p, que é o endereço para o qual p aponta. Por fim, **&p nos oferecerá como resposta o conteúdo de p, ou seja, o mesmo que *p que no caso é o valor de i, que é 3.
 
 d)Como *p e *q correspondem aos conteúdos dos ponteiros para inteiros p e q , segue que  expressão  3 - *p/(*q) + 7 corresponde a  3 - 3/5 + 7=3-0+7=10.
 
 
----------------------------
+---------------------------------------------------------------------------------------------------------------------------
+
 Questao 2: 
 
 Mostre o que será impresso por programa supondo que a variável i ocupa o endereço 4094 na
@@ -48,26 +50,83 @@ O comando 3**p significa 3 vezes o conteúdo de p, ou seja 3 x 5 = 15 (o primeir
 
 Por fim, **&p+4 corresponde a soma entre o conteúdo do ponteiro p (pois **&p=*p=5) e o número 4, ou seja, **&p+4=5+4=9.
 
----------------------------
+---------------------------------------------------------------------------------------------------------------------------
 
 Questao 3: 
 
 Se i e j são variáveis inteiras e p e q ponteiros para int, quais das seguintes expressões de
 atribuição são ilegais? Justifique.
 
-p = &i;
-*q = &j;
-p = &*&i;
-i = (*&)j;
-i = *&j;
-i = *&*&j;
-q = *p;
-i = (*p)++ + *q;
+a)p = &i;
+b)*q = &j;
+c)p = &*&i;
+d)i = (*&)j;
+e)i = *&j;
+f)i = *&*&j;
+g)q = *p;
+h)i = (*p)++ + *q;
 
 <resposta da questao 3>
 
----------------------------
+a)A expressão p = &i faz sentido, pois &i retorna o endereço da variável inteira i e sendo p um ponteiro para inteiro o tipo de dado que ele pode receber é exatamente um endereço de uma variável do tipo inteira. Portanto a expessão p=&i atribui ao ponteiro o endereço de memória onde está guardado o contaúdo da varíavel i. 
 
+b)A expressão *q = &j é permitida. Ela faz com que o ponteiro para inteiro q aponte para o endereço da variável inteira j. Por exemplo,
+
+int x = 10;
+int *p = &x; // p aponta para o endereço de x
+printf("%d", *p); // Isso imprimirá o valor de x, ou seja, 10
+
+
+
+c) A expressão p = &*&i faz sentido em C. Vamos analisar essa expressão passo a passo:
+
+&i: Obtém o endereço da variável i.
+*: Desreferencia o endereço obtido em &i, ou seja, retorna o valor armazenado nesse endereço, que é o valor da variável i.
+&: Obtém o endereço do valor retornado na etapa anterior.
+p =: Atribui esse endereço ao ponteiro p.
+Portanto, no final, o ponteiro p estará apontando para o endereço da variável i.
+
+d) A expressão i = (*&)j não é válida em C, os parênteses em geral dão a ideia de prioridade, portanto na~ofaz sentido (*&), visto que * e & são operadores que agem sobre variáveis e no interior dos parênteses (que  teria prioridade no compilador) *& não agem sobre enhuma variável.
+
+e) Aexpressão i = *&j faz sentido em C. Vejamos como explicar o que essa expressão faz:
+
+&j: Retorna o endereço da variável j.
+*: Desreferencia o endereço obtido em &j, ou seja, acessa o valor armazenado nesse endereço.
+i =: Atribui esse valor à variável i.
+Então, em resumo, i receberá o valor de j, o que faz pleno sentido pois tanto i como j são variáveis do tio inteiro.
+
+
+f)A expressão i = *&*&j faz sentido em C. Vejamos como explicar o que essa expressão faz:
+
+&j: Retorna o endereço da variável j.
+*: Desreferencia o endereço obtido em &j, ou seja, acessa o valor armazenado nesse endereço, que é o valor da variável j.
+&: Obtém o endereço do valor obtido na etapa anterior, que é o endereço de j.
+*: Desreferencia o endereço obtido em &, ou seja, acessa o valor armazenado nesse endereço, que é o valor de j.
+i =: Atribui esse valor à variável i.
+
+g)Em C, a expressão q=*p faz sentido. Ela atriu ao ponteiro q o conteúdo do ponteiro p. Vejamos um exemplo:
+ 
+    int x = 42;
+    int *p, *q;
+
+    q = &x; // q aponta para o endereço de x
+    p = *q; // p recebe o valor apontado por q
+
+    printf("O valor de p é: %d\n", p); // Imprime o valor de p
+
+h)A expressão i = (*p)++ + *q faz sentido em C. Ela adiciona o valor apontado por p incrementado em 1 ao valor apontado por q, e o resultado é atribuído a i. De fato,
+
+
+(*p)++: Desreferencia o ponteiro p, acessa o valor para o qual p está apontando e então incrementa esse valor em 1. 
+
+O operador ++ após o parêntese faz o pós-incremento, o que significa que primeiro o valor é usado na expressão e depois é incrementado.
+
+*q: Desreferencia o ponteiro q, acessa o valor para o qual q está apontando.
+
+Depois disso, os valores desreferenciados de p e q são somados e atribuídos à variável i.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
 Questao 4: 
 
 
@@ -87,33 +146,41 @@ int idade;
 int vetor[3];
 int *p4;
 int *p5;
+
 /* (a) */
 valor = 10;
 p1 = &valor;
 *p1 = 20;
 printf("%d \n", valor);
+
 /* (b) */
 temp = 26.5;
 p2 = &temp;
 *p2 = 29.0;
 printf("%.1f \n", temp);
+
 /* (c) */
 p3 = &nome[0];
 aux = *p3;
 printf("%c \n", aux);
+
 /* (d) */
 p3 = &nome[4];
 aux = *p3;
 printf("%c \n", aux);
+
 /* (e) */
 p3 = nome;
 printf("%c \n", *p3);
+
 /* (f) */
 p3 = p3 + 4;
 printf("%c \n", *p3);
+
 /* (g) */
 p3--;
 printf("%c \n", *p3);
+
 /* (h) */
 vetor[0] = 31;
 vetor[1] = 45;
@@ -121,28 +188,33 @@ vetor[2] = 27;
 p4 = vetor;
 idade = *p4;
 printf("%d \n", idade);
+
 /* (i) */
 p5 = p4 + 1;
 idade = *p5;
 printf("%d \n", idade);
+
 /* (j) */
 p4 = p5 + 1;
 idade = *p4;
 printf("%d \n", idade);
+
 /* (l) */
 p4 = p4 - 2;
 idade = *p4;
 printf("%d \n", idade);
+
 /* (m) */
 p5 = &vetor[2] - 1;
 printf("%d \n", *p5);
+
 /* (n) */
 p5++;
 printf("%d \n", *p5);
 return(0);
 }
 
-<resposta da questao 3>
+<resposta da questao 4>
 
 O resultado da execução do programa foi o seguinte:
 
@@ -160,14 +232,64 @@ t
 45 
 27 
 
-Vamos à análise dos resultados.
+Vamos à análise dos resultados:
 
----------------------------
+Trecho (a): A variável valor inicia com o conteúdo 10, o ponteiro p1 recebo o endereço da variável valor, depois o conteúdo do endereço para onde p1 aponta é modificado para 20 e por fim é impresso o 20, como é esperado.
+
+Trecho (b): A variável temp recebe inicialmente o valor 26.5. Em seguida o ponteiro p2 recebe o endereço de memória onde está guardado o conteúdo da variável temp. Em seguida o conteúdo do endereço para onde p2 aponta recebe o valor 29.0. Por fim é impresso o valor 29.0, como o esperado.
+
+Trecho (c): Nesse trecho o ponteiro p3 (do tipo char) recebe o endereço correspondente a primeira posição da variável nome (do tipo char), cujo conteúdo é a palavra "Ponteiros". Dessa forma p3 aponta para o endereço de memória onde está guardada a letra P. No passo seguinte a variável aux (do tipo char) recebe o conteúdo para onde p3 aponta, ou seja recebe a letra P. Por fim, é impresso o conteúdo da variável aux, que é justamente a letra P.  
+
+
+Trecho (d):  Nesse trecho o ponteiro p3 (do tipo char) recebe o endereço correspondente a posição 4 da variável nome (do tipo char), cujo conteúdo é a palavra "Ponteiros". Dessa forma p3 aponta para o endereço de memória onde está guardada a letra "e". No passo seguinte a variável aux (do tipo char) recebe o conteúdo para onde p3 aponta, ou seja recebe a letra "e". Por fim, é impresso o conteúdo da variável aux, que é justamente a letra "e".  
+
+
+Trecho (e): Nesse trecho o ponteiro p3 recebe o conteúdo da variável nome (ponteiro para char, que aponta para o endereço de memória onde está guardado o conteúdo "Ponteiros"). Por fim, ao imprimir *p3 será impresso o conteúdo do endereço de memória para onde p3 aponta que contém a letra P, que é a letra que está na primeira posição.
+
+Trecho (f): Nesse trecho, o conteúdo atual de p3 (que é o endereço de memória no qual está guardada a letra P) será acrescido de 4 unidades (o ponteiro p3 é do tipo char que ocupa 1 byte). Assim o novo valor assumido por p3 será correspondente ao conteúdo de 4 letras após a letra P na palavra Ponteiros, ou seja, a letra "e".
+
+Trecho (g): Nesse techo, o conteúdo atual de p3, que é o endereço onde está guardada a letra "e" da palavre Ponteiros será modificado para uma unicada a menos, ou seja, p3 passará a apontar  para o endereço de memória onde se enconta a letra antes do "e" que é a letra "t". Por isso na execusão do programa o comando printf("%c \n", *p3) imprime a letra "t".
+
+Trecho (h): Nesse trecho do programa, a primeira posição da variável vetor (que é um array) recebe o valor 31, a segunda posição recebe 45 e a terceira posição recebe 27, ou seja, vetor=(31,45,27). Em seguida o ponteiro p4 aponta  para o endereço onde está guardada a variável vetor. Em seguida a variável idade recebe o conteúdo de p4, que é o conteudo do endereço para onde p4 aponta, ou seja, a primeira posição da variável vetor v[0] que é igual a 31, o que faz com que o comando printf("%d \n", idade) imprima o valor 31 na tela.
+
+Trecho (i): Nesse trecho o ponteriro p5 recebe o conteúdo do ponteiro p4+1. Como nesse momento o conteúdo do endereço para onde p4 aponta era 31, segue que p5 passa a apontar para o endereço de memória correspondente a próxima posicao da vaiável vetor, pou seja p5 passa a asumir o valor 45 que é a segunda posição da variável vetor.
+
+Trecho (j): Nesse trecho é atribuido ao ponteiro p4 o conteúdo de p5+1.  Como nesse momento p5 apontava para o endereço de memória onde estada guardado o número 45 (segunda posição da variável vetor), agora como "+1" , p4 passa a apontar para o endereço de memória onde está guardado o número 27, que é o conteúdo guardado na terceira posição da variáel vetor. Por isso o comando printf("%d \n", idade) imprime o valor 27 na tela.
+
+
+Trecho (l): Nesse trecho do programa o ponteiro p4, que neste momento apontava para o endereço de memória onde está  27 (terceira posição da variável vetor) recebe o conteúdo de p4-2, ou seja, "recua" duas unidades na memória, passando a apontar para o endereço de memória onde está guardado o número 31, que é a primeira posição da variável vetor. Diante do exposta, o comando printf("%d \n", idade) imprime na tela o valor 31.
+
+
+Trecho (m): Nesse trecho do programa o ponteiro p5 recebe o conteúdo &vetor[2] - 1, ou seja, recebe o endereço da segunda posição da variável vetor vetor=(vetor[0],vetor[1],vetor[2])=(31,45,27). Ou seja p5 passa a apontar para o endereço onde está guardada o número 45. Diante do exposto o comando printf("%d \n", *p5) imprimeo o conteúdo de p5 que agora é 45.
+
+Trecho (n): Nesse trecho do programa o ponteiro p5 recebe o conteúdo p5+1. Como neste momento p5 estava apontando para o endereço correspondente a segunda posição da variável vetor, p5 passa a apontar para o endereço correspondente a terceira posição da varia´vel vetor, ou seja, p5 passa a apontar para oendereço de memória onde encontra-se o número 27. Por isso, o comando printf("%d \n", *p5) imprime o número 27 na tela.
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
 
 Questao 5:
 
 Determine o que será mostrado pelo seguinte programa (compile-o, execute-o e explique se
 foram obtidas as respostas esperadas).
+
+int main(void){
+float vet[5] = {1.1,2.2,3.3,4.4,5.5};
+float *f;
+int i;
+f = vet;
+printf("contador/valor/valor/endereco/endereco\n");
+for(i = 0 ; i <= 4 ; i++){
+printf("i = %d",i);
+printf(" vet[%d] = %.1f",i, vet[i]);
+printf(" *(f + %d) = %.1f",i, *(f+i));
+printf(" &vet[%d] = %X",i, &vet[i]);
+printf(" (f + %d) = %X",i, f+i);
+printf("\n");
+}
+}
 
 
 <resposta da questao 5>
@@ -181,7 +303,25 @@ i = 2 vet[2] = 3.3 *(f + 2) = 3.3 &vet[2] = C2497CC8 (f + 2) = C2497CC8
 i = 3 vet[3] = 4.4 *(f + 3) = 4.4 &vet[3] = C2497CCC (f + 3) = C2497CCC
 i = 4 vet[4] = 5.5 *(f + 4) = 5.5 &vet[4] = C2497CD0 (f + 4) = C2497CD0
 
----------------------------
+
+O programa funciona da seguinte forma: 
+
+A variável inteira i funcionará como um contador pois vai sendo incrementada de 1 em 1 unidade durante a excussão do programa.A variável i assume inicialmento o valor 0,  e enquanto é menor que 4 ela vai sendo incrementada de 1 em 1 unidade. Para cada valor de i-0,1,2,3 são impressos na tela os seguintes resultados:
+
+printf("i = %d",i): imprime o valor atual da variável i (o contador).
+
+printf(" vet[%d] = %.1f",i, vet[i]): Imprime com uma case decimal o valor do elemento que ocupa a posição "d" dentro do vetor vet. Isto é, vet[i] é o elemento que ocupa a posição i dentro do vetor (lembrando que i comoça do valor 0).
+
+printf(" *(f + %d) = %.1f",i, *(f+i)): Imprime com uma cada decimal o valor que está guardado na posição para a qual o ponteiro *(f + i)  aponta para cada alor de i=0,1,2,3,4.
+
+printf(" &vet[%d] = %X",i, &vet[i]); Imprime em hexadecimal (o formato %X indica isso)  o endereço onde está guardado o valor assumido por vet[i], ou seja, o endereço do conteúdo corrrespondente a posição i no vetor vet.
+
+printf(" (f + %d) = %X",i, f+i): Imprime em hexadecimal (o formato %X indica isso) o endereço para onde aponta o ponteiro f+i para cada valor de i=0,1,2,3,4
+
+printf("\n") indica que ocorererá uma quebra de linha.
+
+
+------------------------------------------------------------------------------------------------------------------------------------
 
 Questao 6:
 Assumindo que pulo[] é um vetor do tipo int, quais das seguintes expressões referenciam o
@@ -194,7 +334,11 @@ d) pulo + 2;
 
 <resposta da questao 6>
 
----------------------------
+Alternativa (a). Em C, as posições dos vetores são sempre enumeradas a partir do 0. Então a terceira posição de um vetor está acossiada ao índice 2. Assim , o comando *(pulo + 2) coresponde ao conteúdo da posição 2 do vetor pulo. Então, *(pulo + 2) simplesmente acessa o valor armazenado no terceiro elemento do vetor pulo.
+
+
+
+-----------------------------------------------------------------------------------------------------------
 
 Questao 7:
 
@@ -211,7 +355,11 @@ x = (*mat);
 
 <resposta da questao 7>
 
----------------------------
+Nesse caso, mat[4] é um vetor de inteiros com 4 elementos. *p é um ponteiro para um inteiro. x é uma variável inteira. Assim, quando você executa o comando p = mat + 1, você está atribuindo a p o endereço do segundo elemento do vetor mat. Então, depois desse comando, p estará apontando para o segundo elemento do vetor mat. Isso significa que *p agora acessará o valor armazenado no segundo elemento do vetor mat. A expressão p = mat faz com que o ponteiro p aponte para o local da memória onde está guardada a primeira posição do vetor mat. Por fim,  *mat dereferencia o ponteiro mat, ou seja, acessa o valor armazenado no primeiro elemento do vetor. Portanto, (*mat) resulta no valor do primeiro elemento de mat. Então, depois desse comando, x conterá o valor do primeiro elemento do vetor mat.
+
+
+
+---------------------------------------------------------------------------------------------------------------
 
 Questao 8:
 
@@ -238,7 +386,13 @@ printf("%X ",vet+i);
 
 <resposta da questao 8>
 
----------------------------
+
+O progama 1 inicia atribuindo ao vetor ver as entradas (4,9,13). Em seguida é introduzida uma variável inteira i para funcionar como o contador que em cada looping do programa (i variando de 0 a 3). Para cada valor de i  é impresso o valor encontrado na posição vet+i, ou seja serão impressos os valores vet[0]=4,vet[1]=9 e vet[2]=13.
+
+O programa 2 Inicia atribuindo ao vetor ver as entradas (4,9,13) Em seguida é introduzida uma variável inteira i para funcionar como o contador que em cada looping do programa (i variando de 0 a 3). Para cada valor de i  é impresso o valor hexadecimal correspondente a posição vet+i, ou seja serão impressos em hexadecimal os endereços de vet[0], vet[1] e vet[2].
+
+
+----------------------------------------------------------------------------------------------------------------
 
 Questao 9:
 
@@ -257,7 +411,45 @@ printf("%s", s->name);
 
 <resposta da questao 9>
 
----------------------------
+Ao tentar compiplar o código acima não conseguimos gerar nenhuma saída, apenas algumas mensagens de erro. A  seguir explicaremos os erros que identificamos e em seguida sugerimos algumas possíveis correções para que o programa possa funcionar.
+
+a)Não há  uma declaração para o tipo de retorno da função main. Normalmente usamos int main() no lugar de main().
+
+b)Não é possível inicializar membros de uma estrutura na declaração da estrutura em C. Portanto, a inicialização int x = 3; e char nome[] = "jose"; não é permitida.
+
+c)O programa está tentando acessar membros de uma estrutura antes de alocar memória para ela.
+
+Uma sugestão para para corrigir esses erros seria o seguinte código:
+
+
+#include <stdio.h>
+
+struct teste {
+    int x;
+    char nome[]; 
+};
+
+int main() {
+    struct teste *s; // Declaração de um ponteiro para uma estrutura 'teste'
+    
+    s = malloc(sizeof(struct teste)); // Aloca memória para a estrutura 'teste'
+    
+    // Atribui valores aos membros da estrutura 'teste'
+    s->x = 3;
+    strcpy(s->nome, "Jose"); // Usamos strcpy() para copiar a string para 'nome'
+    
+    // Imprime os valores dos membros da estrutura 'teste'
+    printf("%d\n", s->x);
+    printf("%s\n", s->nome);
+    
+    free(s); // Libera a memória alocada
+    
+    return 0;
+}
+
+Com esse código a saída do programa seria: 3 jose
+
+------------------------------------------------------------------------------------------------------------------
 
 Questao 10:
 
@@ -271,35 +463,268 @@ printf("%d", ++(*x));
 
 <resposta da questao 10>
 
----------------------------
+Ao tentar executar o programa acima não consegui gerrar nenhuma saída, exceto algumas mensagens de erro. Analizando o código identificamos alguns erros. A seguir apontamos esses erros e suas possíveis correções:
+
+Você está tentando atribuir o valor 3 a um ponteiro constante para inteiro (int const *x), o que não é permitido diretamente em C. 
+
+Além disso, você está tentando modificar o valor apontado pelo ponteiro x usando o operador de incremento (++(*x)), mas como x é um ponteiro para uma constante, isso também causará um erro.
+
+Uma possível modificação que faria o programa funcionar seria  o seguinte:
+
+
+#include <stdio.h>
+
+int main() {
+    int *x = NULL; // Declara um ponteiro para inteiro
+    int y = 10; // Declara uma variável inteira y com valor 3
+    x = &y; // Atribui o endereço de y ao ponteiro x
+    
+    printf("%d", ++(*x)); // Incrementa o valor apontado por x e imprime
+    
+    return 0;
+}
+
+Com esse código acima a saída do programa é 11.
+
+
+---------------------------------------------------------------------------------------------------------
 
 Questao 11:
+
+Seja x um vetor de 4 elementos, declarado da forma TIPO x[4]. Suponha que depois da declaração, x esteja armazenado no endereço de memória 4092 (ou seja, o endereço de x[0]). Suponha também que na máquina seja usada uma variável do tipo char ocupa 1 byte, do tipo int ocupa 2 bytes, do tipo float ocupa 4 bytes e do tipo double ocupa 8 bytes. Quais serão os valores de x+1, x+2 e x+3 se:
+
+a)x for declarado como char?
+b)x for declarado como int?
+c)x for declarado como float?
+d)x for declarado como double?
+Implemente um programa de computador para testar estas suposições e compare as respostas oferecidas pelo programa com as respostas que você idealizou.
 
 
 <resposta da questao 11>
 
----------------------------
+a)Se x for declarado como um vetor de char, então x+1, x+2 e x+3 apontarão para os endereços subsequentes na memória, onde cada endereço é deslocado pelo tamanho de um elemento do tipo char. Lembrando  que um char ocupa 1 byte, quando avançamos 1, 2 ou 3 elementos na memória, estamos avançando 1, 2 ou 3 bytes, respectivamente.
+
+Supondo que x começa no endereço de memória 4092, temos:
+
+x+1 estará em 4093
+x+2 estará em 4094
+x+3 estará em 4095
+
+Isso ocorre porque cada char ocupa 1 byte e, ao somar 1 ao endereço de x, você avança 1 byte na memória.
+
+b)Se x for declarado como um vetor de int, então x+1, x+2 e x+3 apontarão para os endereços subsequentes na memória, onde cada endereço é deslocado pelo tamanho de um elemento do tipo int.
+
+Dado que um int ocupa 2 bytes, quando avançamos 1, 2 ou 3 elementos na memória, estamos avançando 2, 4 ou 6 bytes, respectivamente.
+
+Dado que x começa no endereço de memória 4092, temos:
+
+x+1 estará em 4094 (4092 + 2)
+x+2 estará em 4096 (4092 + 2*2)
+x+3 estará em 4098 (4092 + 3*2)
+Isso ocorre porque cada int ocupa 2 bytes e, ao somar 1 ao endereço de x, você avança 2 bytes na memória.
+
+c) Se x for declarado como um vetor de float, então x+1, x+2 e x+3 apontarão para os endereços subsequentes na memória, onde cada endereço é deslocado pelo tamanho de um elemento do tipo float.
+
+Dado que um float ocupa 4 bytes, quando avançamos 1, 2 ou 3 elementos na memória, estamos avançando 4, 8 ou 12 bytes, respectivamente.
+
+Dado que x começa no endereço de memória 4092, temos:
+
+x+1 estará em 4096 (4092 + 4)
+x+2 estará em 4100 (4092 + 2*4)
+x+3 estará em 4104 (4092 + 3*4)
+Isso ocorre porque cada float ocupa 4 bytes e, ao somar 1 ao endereço de x, você avança 4 bytes na memória.
+
+
+d)Se x for declarado como um vetor de double, então x+1, x+2 e x+3 apontarão para os endereços subsequentes na memória, onde cada endereço é deslocado pelo tamanho de um elemento do tipo double.
+
+Dado que um double ocupa 8 bytes, quando avançamos 1, 2 ou 3 elementos na memória, estamos avançando 8, 16 ou 24 bytes, respectivamente.
+
+Dado que x começa no endereço de memória 4092, temos:
+
+x+1 estará em 4100 (4092 + 8)
+x+2 estará em 4108 (4092 + 2*8)
+x+3 estará em 4116 (4092 + 3*8)
+
+Isso ocorre porque cada double ocupa 8 bytes e, ao somar 1 ao endereço de x, você avança 8 bytes na memória.
+
+A seguir mostramos um programa C que verifica as afirmações acima.
+
+// PROGRAMA EM C
+
+a)Para  Char
+
+#include <stdio.h>
+
+int main() {
+    char x[4]; // Declaração de um vetor de 4 elementos do tipo char
+    char *ptr = x; // Declaração de um ponteiro para o vetor x
+
+    printf("Endereço de x[0]: %p\n", (void *)ptr); // Imprime o endereço de x[0]
+    printf("Endereço de x+1: %p\n", (void *)(ptr + 1)); // Imprime o endereço de x+1
+    printf("Endereço de x+2: %p\n", (void *)(ptr + 2)); // Imprime o endereço de x+2
+    printf("Endereço de x+3: %p\n", (void *)(ptr + 3)); // Imprime o endereço de x+3
+
+    return 0;
+}
+
+Endereço de x[0]: 0x7fffcdead42c
+Endereço de x+1: 0x7fffcdead42d
+Endereço de x+2: 0x7fffcdead42e
+Endereço de x+3: 0x7fffcdead42f
+
+Como em Hexadecimal c=12, d=13, e=14 e f=15, temos que os endereços exibidos acima são consecutivos.
+
+Para int, float e double o programa é completamente análogo apenas redefinindo x[4] para os tipos int, float e double.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
 
 Questao 12:
+
+Suponha que as seguintes declarações tenham sido realizadas:
+
+float aloha[10], coisas[10][5], *pf, value = 2.2;
+int i=3;
+aloha[2] = value;
+scanf("%f", &aloha);
+aloha = "value";
+printf("%f", aloha);
+coisas[4][4] = aloha[3];
+coisas[5] = aloha;
+pf = value;
+pf = aloha;
+
+
 <resposta da questao 12>
 
 ---------------------------
 
 Questao 13:
 
+O que é memory leak? Procure 3 exemplos de programas em C que apresentem memory leak e
+explique o que acontece em cada um deles.
+
 
 <resposta da questao 13>
+
+Memory leak (vazamento de memória) é um problema comum em programação, especialmente em linguagens que gerenciam manualmente a alocação e desalocação de memória, como C e C++. Ocorre quando um programa aloca dinamicamente memória durante sua execução, mas não libera essa memória adequadamente quando não é mais necessária. Como resultado, a memória alocada permanece ocupada mesmo após não ser mais utilizada pelo programa, levando a um desperdício de memória. Se um programa continuar alocando memória sem liberá-la, ele eventualmente esgotará toda a memória disponível no sistema, levando a falhas de execução.
+
+Exemplo 1
+
+#include <stdlib.h>
+
+int main() {
+    while(1) {
+        int *ptr = malloc(sizeof(int)); // Aloca memória dinamicamente
+        // Não há desalocação de memória
+    }
+    return 0;
+}
+
+Neste programa, o loop while aloca continuamente memória para um novo inteiro em cada iteração, mas nunca libera essa memória. Isso resulta em um vazamento de memória constante, pois a memória alocada nunca é desalocada.
+
+Exemplo 2
+
+#include <stdlib.h>
+
+int main() {
+    int *ptr = malloc(10 * sizeof(int)); // Aloca memória para 10 inteiros
+    ptr = malloc(20 * sizeof(int)); // Aloca mais memória para 20 inteiros, sem liberar a memória anterior
+    return 0;
+}
+
+Neste programa, o ponteiro ptr é inicialmente alocado para armazenar espaço para 10 inteiros, mas depois é realocado para armazenar espaço para 20 inteiros, sem liberar a memória alocada anteriormente. Isso resulta em uma perda de referência para a memória originalmente alocada e causa um vazamento de memória, pois essa memória nunca será desalocada.
+
+
+Exemplo 3
+
+#include <stdlib.h>
+
+int main() {
+    int *ptr = malloc(sizeof(int)); // Aloca memória dinamicamente
+    ptr = NULL; // Libera a referência para a memória sem desalocá-la
+    return 0;
+}
+
+Neste programa, o ponteiro ptr é inicialmente alocado para armazenar espaço para um inteiro, mas depois a referência para essa memória é perdida ao atribuir NULL a ptr, sem desalocar a memória previamente alocada. Isso resulta em uma perda de memória, pois não há mais como acessar ou liberar a memória alocada.
 
 ---------------------------
 
 Questao 14:
 
+O que é um ponteiro para uma função? Pesquise na Internet referências sobre o assunto e
+escreva um pequeno programa exemplificando o uso deste recurso. Explique seu programa,
+comentando cada uma das linhas de código.
+
 <resposta da questao 14>
+
+Um ponteiro para uma função em C é um tipo de dado que armazena o endereço de memória de uma função. Assim como os ponteiros para variáveis, os ponteiros para funções também podem ser utilizados para acessar e manipular funções de forma dinâmica durante a execução do programa.
+
+
+A declaração de um ponteiro para uma função segue o seguinte formato:
+
+tipo_retorno (*nome_ponteiro_para_funcao)(lista_de_tipos_de_parametros);
+
+int soma(int a, int b) {
+    return a + b;
+}
+
+Você pode declarar um ponteiro para esta função da seguinte maneira:
+
+int (*ponteiro_para_funcao)(int, int);
+
+Você pode atribuir o endereço da função soma a este ponteiro assim:
+
+ponteiro_para_funcao = soma;
+
+E agora você pode usar o ponteiro para chamar a função da mesma maneira que faria com a função original:
+
+int resultado = ponteiro_para_funcao(3, 4); // resultado será 7
+
+Isso oferece flexibilidade ao seu programa, pois permite que você, por exemplo, passe uma função como argumento para outra função ou a armazene em uma estrutura de dados para ser usada posteriormente, possibilitando uma programação mais dinâmica e poderosa.
+
+Exemplo de um programa onde usamos ponteiros para funções
+
+#include <stdio.h>
+
+// Função de soma normal
+int soma_normal(int a, int b) {
+    return a + b;
+}
+
+// Função de soma dos quadrados
+int soma_quadrado(int a, int b) {
+    return (a * a) + (b * b);
+}
+
+int main() {
+    // Ponteiro para função
+    int (*ponteiro_para_soma)(int, int);
+
+    // Atribui o endereço da função de soma normal ao ponteiro
+    ponteiro_para_soma = soma_normal;
+
+    // Usa o ponteiro para chamar a função de soma normal
+    int resultado1 = ponteiro_para_soma(3, 4);
+    printf("Resultado da soma normal: %d\n", resultado1);
+
+    // Atribui o endereço da função de soma dos quadrados ao ponteiro
+    ponteiro_para_soma = soma_quadrado;
+
+    // Usa o ponteiro para chamar a função de soma dos quadrados
+    int resultado2 = ponteiro_para_soma(3, 4);
+    printf("Resultado da soma dos quadrados: %d\n", resultado2);
+
+    return 0;
+}
 
 ---------------------------
 
 Questao 15:
 
+Implemente em linguagem C uma função em um programa de computador que leia n valores do
+tipo float e os apresente em ordem crescente. Utilize alocação dinâmica de memória para
+realizar a tarefa.
 
 <resposta da questao 15>
 
@@ -307,17 +732,35 @@ Questao 15:
 
 Questao 16:
 
+Reimplemente o programa da questão anterior utilizando a função qsort() do C. Comente o seu
+código, explicando o que faz cada uma das linhas.
+
 
 <resposta da questao 16>
 
 ---------------------------
 
 Questao 17:
+
+Utilize a ideia do ponteiro para função pela função qsort() para implementar sua própria
+função de ordenação, mas que seja capaz de ordenar apenas inteiros do tipo int. Para isso, sua
+função deverá receber, entre outros argumentos, um ponteiro para a função de comparação
+que determinará como os elementos do array serão ordenados.
+
+
 <resposta da questao 17>
 
 ---------------------------
 
 Questao 18:
+
+Procure na internet mecanismos que possibilitem medir tempos de execução de rotinas
+computacionais. Geralmente, estas medidas são realizadas com o auxílio de funções em C que
+lêem a hora no sistema (sistemas Unix e Windows geralmente usam funções diferentes).
+Utilizando os conhecimentos que você obteve com sua pesquisa, meça os tempos de execução
+das implementações que você criou para os dois problemas de ordenação anteriores,
+considerando apenas arrays de elementos tipo int e compare os resultados obtidos. O que se
+conclui nesse caso?
 
 
 <resposta da questao 18>
@@ -326,18 +769,92 @@ Questao 18:
 
 Questao 19:
 
+Escreva uma função em linguagem C que escreva em um vetor a soma dos elementos
+correspondentes de outros dois vetores (os tamanhos dos vetores devem ser fornecidos pelo
+usuário). Por exemplo, se o primeiro vetor contiver os elementos 1, 3, 0 e -2, e o segundo vetor
+contiver os elementos 3, 5, -3 e 1, o vetor de soma terá valores resultantes iguais a 4, 8, -3 e -1. A
+função deve receber 4 argumentos: os nomes dos três vetores e o número de elementos
+presentes em cada vetor. Exemplo:
+
+soma_vetores(vet1, vet2, resultado, 4);
+
 <resposta da questao 19>
 
 ---------------------------
 
 Questao 20:
 
+Crie uma função capaz de realizar multiplicação matricial da forma C = AxB. A função deve
+receber 6 argumentos: os ponteiros para as matrizes A, B e C, o número de linhas e colunas de A
+e o número de colunas de B (assuma que o número de coluna de A é igual ao número de linhas
+de B). O resultado da multiplicação deve ficar armazenado em C. Crie um programa para testar
+sua implementação, capaz de utilizar a função de multiplicação e imprimir as três matrizes. A
+função criada para multiplicação não deve realizar nenhum tipo de saída de dados no terminal.
+Exemplo: para multiplicar duas matrizes (A e B) de dimensões 2x3 e 3x4, respectivamente (o
+resultado deve ficar armazenado em C).
+
+multiplica_matrizes(A, B, C, 2, 3, 4);
 
 <resposta da questao 20>
+
+
 
 ---------------------------
 
 Questao 21:
+
+(ENADE, 2023) Memory leak, ou vazamento de memória, é um problema que ocorre em
+sistemas computacionais quando uma parte da memória, alocada para uma determinada
+operação, não é liberada quando se torna desnecessária. Na linguagem C, esse tipo de problema
+é quase sempre relacionado ao uso incorreto das funções malloc( ) e free( ). Esse erro de
+programação pode levar a falhas no sistema se a memória for completamente consumida. Um
+dos trechos abaixo apresenta um vazamento de memória. Identifique-o e justifique sua
+resposta.
+
+A void f( ){
+void *s;
+s = malloc(50);
+free(s);
+}
+
+B int f( ){
+float *a;
+return 0;
+}
+
+C int f(char *data){
+void *s;
+s = malloc(50);
+int size = strlen(data);
+if (size > 50)
+return(-1);
+free(s);
+return 0;
+}
+
+
+D int *f(int n){
+int *num = malloc(sizeof(int)*n);
+return num;
+}
+
+int main(void){
+int *num;
+num = f(10);
+free(num);
+return 0;
+}
+
+E void f(int n){
+char *m = malloc(10);
+char *n = malloc(10);
+free(m);
+m = n;
+free(m);
+free(n);
+}
+
+
 
 
 <resposta da questao 21>
@@ -345,11 +862,93 @@ Questao 21:
 ---------------------------
 
 Questao 22:
+
+
+(ENADE, 2023) Na programação de sistemas embarcados, algumas posições de memória servem
+para diferentes propósitos, não apenas para armazenar valores. Em algumas dessas memórias,
+cada
+um
+os
+bits
+possui
+um
+significado
+diferente,
+sendo
+necessário
+manipulá-los
+individualmente ou em pequenos grupos. Por isso, o conhecimento da álgebra booliana, bem
+como dos operadores tilizados para realizar operações binárias nas linguagens de programação,
+é essencial para o desenvolvimento desse tipo de sistema. A partir dessas informações, observe
+o código apresentado a seguir, escrito na linguagem C, que faz uso de operações binárias sobre
+variáveis inteiras.
+
+
+#include <stdio.h>
+int main(){
+int a, b;
+int x, y, z;
+scanf("%d %d", &a, &b);
+x = a; y = b; z = a + b;
+while (a) {
+x = x | b;
+y = y ^ a;
+z = z & (a+b);
+a = a >> 1;
+b = b << 1;
+}
+printf ("%d %d %d\n", x, y, z);
+return 0;
+}
+
+Após a chamada desse programa, caso o usuário entre com os valores 10 e 1, nessa ordem, qual
+será, exatamente, o valor da saída do programa?
 <resposta da questao 22>
 
 ---------------------------
 
 Questao 23:
+
+(ENADE, 2021) Observe o código abaixo escrito na linguagem C.
+
+#include <stdio.h>
+#define TAM 10
+int funcaol(int vetor[], int v){
+int i;
+for (i = 0; i < TAM; i++){
+if (vetor[i] == v)
+return i;
+}
+return -1;
+}
+int funcao2(int vetor[], int v, int i, int f){
+int m = (i + f) / 2;
+if (v == vetor[m])
+return m;
+if (i >= f)
+return -1;
+if (v > vetor[m])
+return funcao2(vetor, v, m+l, f);
+else
+return funcao2(vetor, v, i, m-1);
+}
+int main(){
+int vetor[TAM] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19};
+printf("%d - %d", funcao1(vetor, 15), funcao2(vetor, 15, 0, TAM-1));
+return 0;
+}
+
+A respeito das funções implementadas, avalie as afirmações a seguir.
+I. O resultado da impressão na linha 24 é: 7 - 7.
+II. A função funcao1, no pior caso, é uma estratégia mais rápida do que a funcao2.
+III. A função funcao2 implementa uma estratégia iterativa na concepção do algoritmo.
+É correto o que se afirma em:
+IV. I, apenas.
+V. III, apenas.
+VI. I e II, apenas.
+VII. II e III, apenas.
+VIII. I, II e III.
+Justifique sua resposta.
 
 
 <resposta da questao 23>
@@ -358,11 +957,49 @@ Questao 23:
 
 Questao 24:
 
+Um usuário precisa implementar o controle de uma matriz de leds com 8 x 8 elementos. Para
+isso, ele criou um programa em C dotado de uma matriz da forma
+
+unsigned char m[8][8];
+
+para armazenar os estados dos leds. Como existem apenas dois estados possíveis para os leds
+(aceso ou apagado), ele assumiu que leds acessos seriam denotados pelo inteiro "1" nessa matriz
+e leds apagados seriam denotados pelo inteiro "0".
+Ocorre que a função que controla os leds exige que a informação que controla a matriz seja
+enviada via porta serial usando uma função que recebe um único inteiro não sinalizado de
+64 bits, da forma send(unsigned long estado). Nesse inteiro, os bytes mais significativos deverão
+guardar os estados das linhas iniciais da matriz de leds, enquanto os bytes menos significativos
+devem guardar os estados das linhas finais da matriz. Assim, é necessário que cada estado
+previsto na matriz m seja codificado em um bit correspondente na variável enviada pela função.
+Crie um programa em linguagem C para realizar essa codificação e explique na forma de
+comentários como sua codificação da matriz m na variável de 64 bits foi realizada.
+
 <resposta da questao 24>
 
 ---------------------------
 
 Questao 25:
+
+Um programador precisa desenvolver uma aplicação em linguagem C para manipular matrizes
+capazes de armazenar representações de modelos tridimensionais.
+
+Entende-se que o tamanho da matriz é definido pelo usuário e esta deve ser alocada
+dinamicamente usando malloc() em tempo de execução. O processo de criar um modelo na
+matriz consiste em atribuir aos seus elementos os valores inteiros “1” ou “0” para simbolizar
+que há ou não parte do modelo naquela posição. Uma analogia para o modelo seria que a
+criação funciona como no jogo "Minecraft", onde "0" representaria a ausência de objeto e "1"
+representaria a presença de objetos.
+Nesta aplicação, as matrizes devem ser definidas como tipos de dados int. Isto posto, pede-se
+que o programador prepare os algoritmos de alocação dinâmica (usando malloc()/free()) para
+guardar os dados da matriz tridimensional e crie um programa de testes para verificar se a sua
+implementação foi realizada corretamente de modo a garantir as seguintes condições:
+a. O usuário do programa de testes deverá poder fornecer o tamanho da matriz tridimensional
+que deseja manipular, inserindo as dimensões da altura, largura e profundidade desta.
+b. O usuário do programa de testes poderá solicitar a impressão de um dos planos da matriz
+tridimensional.
+c. O usuário do programa de testes poderá modificar o estado de um dos elementos da matriz.
+Insira no seu código comentários para indicar como as posições da matriz poderão ser
+acessadas.
 
 <resposta da questao 25>
 
