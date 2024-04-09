@@ -1212,46 +1212,7 @@ Um usuário precisa implementar o controle de uma matriz de leds com 8 x 8 eleme
 <resposta da questao 24>
 
 
-#include <stdio.h>
 
-// Define o tamanho da matriz
-#define LINHAS 8
-#define COLUNAS 8
-
-// Função para enviar o estado via porta serial (simulada aqui)
-void send(unsigned long estado) {
-    printf("Estado enviado via porta serial: %lu\n", estado);
-}
-
-int main() {
-    // Matriz de leds
-    unsigned char m[LINHAS][COLUNAS] = {
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1}
-    };
-
-    // Variável para armazenar o estado codificado de 64 bits
-    unsigned long estado = 0;
-
-    // Codificação da matriz na variável de 64 bits
-    for (int i = 0; i < LINHAS; i++) {
-        for (int j = 0; j < COLUNAS; j++) {
-            // Desloca os bits da variável estado para a esquerda e adiciona o estado do LED atual
-            estado = (estado << 1) | m[i][j];
-        }
-    }
-
-    // Envia o estado via porta serial
-    send(estado);
-
-    return 0;
-}
 
 --------------------------------------------------------------------------------------------------------------------
 
