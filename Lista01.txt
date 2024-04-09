@@ -1212,7 +1212,7 @@ Um usuário precisa implementar o controle de uma matriz de leds com 8 x 8 eleme
 <resposta da questao 24>
 
 
-
+Não consegui fazer!
 
 --------------------------------------------------------------------------------------------------------------------
 
