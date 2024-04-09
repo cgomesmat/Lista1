@@ -1042,6 +1042,10 @@ return 0;
 Após a chamada desse programa, caso o usuário entre com os valores 10 e 1, nessa ordem, qual
 será, exatamente, o valor da saída do programa?
 
+
+
+<resposta da questao 22>
+
 O funcionamento desse programa é o seguinte:
 
 O programa lê dois números inteiros a e b fornecidos pelo usuário. Inicializa as variáveis x, y e z com os valores de a, b e a + b, respectivamente.
@@ -1056,13 +1060,71 @@ Quando a se torna zero, o loop termina.
 
 Imprime os valores finais de x, y e z 15, 13 e 0. A explicação é a seguinte:
 
+Antes de mais nada lembremos os resultados oferecidos pelos operadores OR, XOR e AND.  
+
+OR = 1 apenas quando pelos menos um dos bits comparados é 1.
+XOR =1 apenas quando os dois bits comparados são diferentes Um deles é 0 e o outro é 1).
+AND = 1 apenas quando os dois bits comparados são iguais a 1.
+
 Entrando com os valores 10 e 1 nessa ordem, o programa irá ler a=10 e b=1. Em seguida x = a; y = b; z = a + b faz com que x=10, y=1 e z=11.
 
-O loop vai iniciar com a=10.  Dentro do loop, xb= x OR b, ou seja,  x=10=(1010)_2 | b=1=(0001)_2  (OR (ou) bit a bit - É 1 quando pelo menos um dos dois bits comparados é 1) x=(1011)_2=11.
-Agora y^a = y XOR a, ou seja, y=1=(0001)_2 XOR a=10=(1010)_2 (XOR é 1 quando apenas um dos bites comparados bit é 1 e 0 caso contrário).
+O loop vai iniciar com a=10.  Dentro do loop, 
+
+x = 10 | 1 = (1010)_2 OR (0001)_2 = (1011)_2
+
+y=1^10 = (0001)_2 XOR (1010)_2 = (1011)_2
+
+z=11 & 11 = (1011)_2 AND (1011)_2 = (1011)_2
+
+a=10>> 1 = (1010)_2 >> 1 = (0101)_2
+
+b=1<<1 = (0001)_2 << 1 = (0010)_2
+
+Como nesse momento a=(0101)_2 que é difente de zero, loop ocorre mais uma vez. Vejamos:
+
+x =(1011)_2 |  (0010)_2 = (1011)_2 OR  (0010)_2 = (1011)_2
+
+y= (1011)_2 ^(0101)_2= (1011)_2 XOR (0101)_2=(1110)_2
+
+z=(1011)_2 & (0111)_2 = (1011)_2 AND (0111)_2=(0011)_2
+
+a= (0101)_2>>1 = (0010)_2
+
+b= (0010)_2 << 1= (0100)_2
+
+Neste ponto como a=(0010)_2, que é diferente de zero. Então, o loop continua:
+
+x = (1011)_2 | (0100)_2 = (1011)_2 OR (0100)_2 = (1111)_2
+
+y= (1110)_2^(0010)_2=(1110)_2 XOR (0010)_2=(1100)_2
+
+z=(0011)_2 & (0110)_2= (0011)_2 AND (0110)_2=(0010)_2
+
+a=  (0010)_2>>1 = (0001)_2
+
+b=  (0100)_2<<1 = (1000)_2
+
+Neste ponto como a=(0001)_2, que é diferente de zero o loop continua:
+
+x =  (1111)_2 |  (1000)_2 =  (1111)_2 OR  (1000)_2 =(1111)_2
+
+y=  (1100)_2^(0001)_2 = (1100)_2 XOR (0001)_2 = (1101)_2
 
 
-<resposta da questao 22>
+z=(0010)_2 & (1001)_2= (0010)_2 AND (1001)_2=(0000)_2
+
+a=  (0001)_2 >>1 = (0000)_2
+
+b=  (1000)_2>>1 =(10000)_2
+
+Neste ponto a=(0000)_2 é nulo, finaliza o loop e são impressos os valores de x, y, e z que são:
+
+x=(1111)_2=1.2^3+1.2^2+1.2^1+1.2^0=15
+
+y=(1101)_2=1.2^3+1.2^2+0.2^1+1.2^0=13
+
+z=(0000)_2=0
+
 
 ----------------------------------------------------------------------------------------------------------------------------------
 
@@ -1204,6 +1266,8 @@ b. O usuário do programa de testes poderá solicitar a impressão de um dos pla
 c. O usuário do programa de testes poderá modificar o estado de um dos elementos da matriz. Insira no seu código comentários para indicar como as posições da matriz poderão ser acessadas.
 
 <resposta da questao 25>
+
+Não consegui fazer!
 
 ----------------------------------------------------------------------------------------------------------------------
 
