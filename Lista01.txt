@@ -314,22 +314,22 @@ i = 4 vet[4] = 5.5 *(f + 4) = 5.5 &vet[4] = C2497CD0 (f + 4) = C2497CD0
 
 O programa funciona da seguinte forma: 
 
-A variável inteira i funcionará como um contador pois vai sendo incrementada de 1 em 1 unidade durante a excussão do programa.A variável i assume inicialmento o valor 0,  e enquanto é menor que 4 ela vai sendo incrementada de 1 em 1 unidade. Para cada valor de i-0,1,2,3 são impressos na tela os seguintes resultados:
+A variável inteira i funcionará como um contador pois vai sendo incrementada de 1 em 1 unidade durante a excução do programa. A variável i assume inicialmente o valor 0,  e enquanto é menor que 4 ela vai sendo incrementada de 1 em 1 unidade. Para cada valor de i=0,1,2,3 são impressos na tela os seguintes resultados:
 
 printf("i = %d",i): imprime o valor atual da variável i (o contador).
 
-printf(" vet[%d] = %.1f",i, vet[i]): Imprime com uma case decimal o valor do elemento que ocupa a posição "d" dentro do vetor vet. Isto é, vet[i] é o elemento que ocupa a posição i dentro do vetor (lembrando que i comoça do valor 0).
+printf(" vet[%d] = %.1f",i, vet[i]): Imprime com uma casa decimal o valor do elemento que ocupa a posição "i" dentro do vetor vet. Isto é, vet[i] é o elemento que ocupa a posição i dentro do vetor (lembrando que i começa do valor 0).
 
-printf(" *(f + %d) = %.1f",i, *(f+i)): Imprime com uma cada decimal o valor que está guardado na posição para a qual o ponteiro *(f + i)  aponta para cada alor de i=0,1,2,3,4.
+printf(" *(f + %d) = %.1f",i, *(f+i)): Imprime com uma cada decimal o valor que está guardado na posição para a qual o ponteiro *(f + i)  aponta para cada valor de i=0,1,2,3,4.
 
-printf(" &vet[%d] = %X",i, &vet[i]); Imprime em hexadecimal (o formato %X indica isso)  o endereço onde está guardado o valor assumido por vet[i], ou seja, o endereço do conteúdo corrrespondente a posição i no vetor vet.
+printf(" &vet[%d] = %X",i, &vet[i]); para cada i=0,1,2,3,4 imprime em hexadecimal (o formato %X indica isso)  o endereço onde está guardado o valor assumido por vet[i], ou seja, o endereço do conteúdo corrrespondente a posição i no vetor vet.
 
-printf(" (f + %d) = %X",i, f+i): Imprime em hexadecimal (o formato %X indica isso) o endereço para onde aponta o ponteiro f+i para cada valor de i=0,1,2,3,4
+printf(" (f + %d) = %X",i, f+i): Imprime em hexadecimal (o formato %X indica isso) o endereço para onde aponta o ponteiro f+i para cada valor de i=0,1,2,3,4.
 
 printf("\n") indica que ocorererá uma quebra de linha.
 
 
-------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 6:
 Assumindo que pulo[] é um vetor do tipo int, quais das seguintes expressões referenciam o
@@ -342,11 +342,11 @@ d) pulo + 2;
 
 <resposta da questao 6>
 
-Alternativa (a). Em C, as posições dos vetores são sempre enumeradas a partir do 0. Então a terceira posição de um vetor está acossiada ao índice 2. Assim , o comando *(pulo + 2) coresponde ao conteúdo da posição 2 do vetor pulo. Então, *(pulo + 2) simplesmente acessa o valor armazenado no terceiro elemento do vetor pulo.
+Alternativa (a). Em C, as posições dos vetores são sempre enumeradas a partir do 0. Então a terceira posição de um vetor está associada ao índice 2. Assim , o comando *(pulo + 2) coresponde ao conteúdo da posição 2 do vetor pulo. Então, *(pulo + 2) simplesmente acessa o valor armazenado no terceiro elemento do vetor pulo.
 
 
 
-------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 7:
 
@@ -363,11 +363,11 @@ x = (*mat);
 
 <resposta da questao 7>
 
-Nesse caso, mat[4] é um vetor de inteiros com 4 elementos. *p é um ponteiro para um inteiro. x é uma variável inteira. Assim, quando você executa o comando p = mat + 1, você está atribuindo a p o endereço do segundo elemento do vetor mat. Então, depois desse comando, p estará apontando para o segundo elemento do vetor mat. Isso significa que *p agora acessará o valor armazenado no segundo elemento do vetor mat. A expressão p = mat faz com que o ponteiro p aponte para o local da memória onde está guardada a primeira posição do vetor mat. Por fim,  *mat dereferencia o ponteiro mat, ou seja, acessa o valor armazenado no primeiro elemento do vetor. Portanto, (*mat) resulta no valor do primeiro elemento de mat. Então, depois desse comando, x conterá o valor do primeiro elemento do vetor mat.
+Todas são válidas! Nesse caso, mat[4] é um vetor de inteiros com 4 elementos. *p é um ponteiro para um inteiro. x é uma variável inteira. Assim, quando você executa o comando p = mat + 1, você está atribuindo a p o endereço do segundo elemento do vetor mat. Então, depois desse comando, p estará apontando para o segundo elemento do vetor mat. Isso significa que *p agora acessará o valor armazenado no segundo elemento do vetor mat. A expressão p = mat faz com que o ponteiro p aponte para o local da memória onde está guardada a primeira posição do vetor mat. Por fim,  *mat dereferencia o ponteiro mat, ou seja, acessa o valor armazenado no primeiro elemento do vetor. Portanto, (*mat) resulta no valor do primeiro elemento de mat. Então, depois desse comando, x conterá o valor do primeiro elemento do vetor mat.
 
 
 
--------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 8:
 
@@ -395,9 +395,9 @@ printf("%X ",vet+i);
 <resposta da questao 8>
 
 
-O progama 1 inicia atribuindo ao vetor ver as entradas (4,9,13). Em seguida é introduzida uma variável inteira i para funcionar como o contador que em cada looping do programa (i variando de 0 a 3). Para cada valor de i  é impresso o valor encontrado na posição vet+i, ou seja serão impressos os valores vet[0]=4,vet[1]=9 e vet[2]=13.
+O progama 1 inicia atribuindo ao vetor ver as entradas (4,9,13). Em seguida é introduzida uma variável inteira i para funcionar como o contador para cada passo loop do programa (i variando de 0 a 3). Para cada valor de i  é impresso o valor encontrado na posição vet+i, ou seja serão impressos os valores vet[0]=4,vet[1]=9 e vet[2]=13.
 
-O programa 2 Inicia atribuindo ao vetor ver as entradas (4,9,13) Em seguida é introduzida uma variável inteira i para funcionar como o contador que em cada looping do programa (i variando de 0 a 3). Para cada valor de i  é impresso o valor hexadecimal correspondente a posição vet+i, ou seja serão impressos em hexadecimal os endereços de vet[0], vet[1] e vet[2].
+O programa 2 Inicia atribuindo ao vetor ver as entradas (4,9,13) Em seguida é introduzida uma variável inteira i para funcionar como o contador para cada passo loop do programa (i variando de 0 a 3). Para cada valor de i  é impresso o valor hexadecimal correspondente ao endereço de memória onde está guardado o conteúdo de vet+i, ou seja serão impressos em hexadecimal os endereços de vet[0], vet[1] e vet[2].
 
 
 ----------------------------------------------------------------------------------------------------------------
@@ -419,7 +419,7 @@ printf("%s", s->name);
 
 <resposta da questao 9>
 
-Ao tentar compiplar o código acima não conseguimos gerar nenhuma saída, apenas algumas mensagens de erro. A  seguir explicaremos os erros que identificamos e em seguida sugerimos algumas possíveis correções para que o programa possa funcionar.
+Ao tentar compiplar o código acima não conseguimos gerar nenhuma saída, apenas algumas mensagens de erro vindas do compilador. A  seguir explicaremos os erros que identificamos e em seguida sugerimos algumas possíveis correções para que o programa possa funcionar.
 
 a)Não há  uma declaração para o tipo de retorno da função main. Normalmente usamos int main() no lugar de main().
 
@@ -471,7 +471,7 @@ printf("%d", ++(*x));
 
 <resposta da questao 10>
 
-Ao tentar executar o programa acima não consegui gerar nenhuma saída, exceto algumas mensagens de erro. Analizando o código identificamos alguns erros. A seguir apontamos esses erros e suas possíveis correções:
+Ao tentar executar o programa acima não consegui gerar nenhuma saída, exceto algumas mensagens de erro vindas do compilador. Analizando o código identificamos alguns erros. A seguir apontamos esses erros e suas possíveis correções:
 
 Você está tentando atribuir o valor 3 a um ponteiro constante para inteiro (int const *x), o que não é permitido diretamente em C. 
 
