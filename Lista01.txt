@@ -114,8 +114,7 @@ g)Em C, a expressão q=*p faz sentido. Ela atriu ao ponteiro q o conteúdo do po
 
     printf("O valor de p é: %d\n", p); // Imprime o valor de p
 
-h)A expressão i = (*p)++ + *q faz sentido em C. Ela adiciona o valor apontado por p incrementado em 1 ao valor apontado por q, e o resultado é atribuído a i. De fato,
-
+h)A expressão i = (*p)++ + *q faz sentido em C. Vejamos:
 
 (*p)++: Desreferencia o ponteiro p, acessa o valor para o qual p está apontando e então incrementa esse valor em 1. 
 
@@ -123,7 +122,7 @@ O operador ++ após o parêntese faz o pós-incremento, o que significa que prim
 
 *q: Desreferencia o ponteiro q, acessa o valor para o qual q está apontando.
 
-Depois disso, os valores desreferenciados de p e q são somados e atribuídos à variável i.
+Depois disso, os valores desreferenciados de p e q são somados o valor final é atribuído à variável i.
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -338,7 +337,7 @@ Alternativa (a). Em C, as posições dos vetores são sempre enumeradas a partir
 
 
 
------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
 
 Questao 7:
 
@@ -359,7 +358,7 @@ Nesse caso, mat[4] é um vetor de inteiros com 4 elementos. *p é um ponteiro pa
 
 
 
----------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 
 Questao 8:
 
@@ -463,7 +462,7 @@ printf("%d", ++(*x));
 
 <resposta da questao 10>
 
-Ao tentar executar o programa acima não consegui gerrar nenhuma saída, exceto algumas mensagens de erro. Analizando o código identificamos alguns erros. A seguir apontamos esses erros e suas possíveis correções:
+Ao tentar executar o programa acima não consegui gerar nenhuma saída, exceto algumas mensagens de erro. Analizando o código identificamos alguns erros. A seguir apontamos esses erros e suas possíveis correções:
 
 Você está tentando atribuir o valor 3 a um ponteiro constante para inteiro (int const *x), o que não é permitido diretamente em C. 
 
@@ -549,6 +548,7 @@ Isso ocorre porque cada double ocupa 8 bytes e, ao somar 1 ao endereço de x, vo
 
 A seguir mostramos um programa C que verifica as afirmações acima.
 
+
 // PROGRAMA EM C
 
 a)Para  Char
@@ -585,19 +585,51 @@ Suponha que as seguintes declarações tenham sido realizadas:
 
 float aloha[10], coisas[10][5], *pf, value = 2.2;
 int i=3;
-aloha[2] = value;
-scanf("%f", &aloha);
-aloha = "value";
-printf("%f", aloha);
-coisas[4][4] = aloha[3];
-coisas[5] = aloha;
-pf = value;
-pf = aloha;
 
+Identifique quais dos seguintes comandos é válido ou inválido:
+
+a)aloha[2] = value;
+b)scanf("%f", &aloha);
+c)aloha = "value";
+d)printf("%f", aloha);
+e)coisas[4][4] = aloha[3];
+f)coisas[5] = aloha;
+g)pf = value;
+h)pf = aloha;
 
 <resposta da questao 12>
 
----------------------------
+a) aloha[2] = value é válida e atribuirá o valor de 2.2 ao terceiro elemento do array aloha.
+
+b) A expressão scanf("%f", &aloha) não é válida. Quando você usa %f como um especificador de formato com scanf, ele espera receber  uma variável do tipo float. No entanto, aloha é um array de floats, não um float único.
+
+c)A expressão aloha = "value" não é válida pois Em C, um array é uma sequência de elementos do mesmo tipo armazenados em locais de memória contíguos. Quando você declara um array como float aloha[10], você está alocando espaço para 10 valores do tipo float.
+
+Por outro lado, "value" é uma string literal em C, representando um array de caracteres terminado por um caractere nulo ('\0'). Não é possível atribuir diretamente uma string a um array de float como aloha.
+
+Se você deseja atribuir o valor da variável value ao primeiro elemento do array aloha, pode fazer isso da seguinte forma:aloha[0] = value;
+
+d)A expressão printf("%f", aloha) não seria válida em um programa C, pois aloha é um array de floats, e o especificador de formato %f é destinado para impressão de valores float individuais, não para arrays.
+
+Para imprimir os elementos individuais do array aloha, você precisaria iterar sobre o array e imprimir cada elemento separadamente. Por exemplo:
+
+for (int j = 0; j < 10; j++) {
+    printf("%f ", aloha[j]);
+}
+
+
+e)A expressão coisas[4][4] = aloha[3] é válida!.Essa expressão atribui o valor do elemento aloha[3] ao elemento coisas[4][4]. No entanto, vale ressaltar que os índices em C começam do zero, então coisas[4][4] refere-se ao quinto elemento na quinta linha do array bidimensional coisas, enquanto aloha[3] refere-se ao quarto elemento do array unidimensional aloha.
+
+f)A expressão coisas[5] = aloha não é válida. De fato, "coisas" é um array bidimensional portanto cada um dos seus elmentos é localizado a partir de dois índices. Já aloha é um array unidimensional. 
+
+Se você deseja atribuir os valores de aloha à uma linha (índice 5) de coisas, teria que fazer isso elemento por elemento, ou seja, coisas[5][i] = aloha[i] em um loop.
+
+
+g)A expressão pf = value não faz sentido pois pf é um ponteiro para float (e portanto deve receber como contaúdo um endereço de memória). Já value é um float onde está guardado o valor 2.2.
+
+h)A expressão pf=aloha faz sentido. Nessa expressão, pf é um ponteiro para float  e aloha é um array de floats. Um array em C é  um ponteiro para seu primeiro elemento. Portanto, aloha é o endereço de memória do primeiro elemento do array.
+
+---------------------------------------------------------------------------------------------------------------------------------------
 
 Questao 13:
 
@@ -615,7 +647,7 @@ Exemplo 1
 
 int main() {
     while(1) {
-        int *ptr = malloc(sizeof(int)); // Aloca memória dinamicamente
+        int *p = malloc(sizeof(int)); // Aloca memória dinamicamente
         // Não há desalocação de memória
     }
     return 0;
@@ -628,12 +660,12 @@ Exemplo 2
 #include <stdlib.h>
 
 int main() {
-    int *ptr = malloc(10 * sizeof(int)); // Aloca memória para 10 inteiros
-    ptr = malloc(20 * sizeof(int)); // Aloca mais memória para 20 inteiros, sem liberar a memória anterior
+    int *p = malloc(10 * sizeof(int)); // Aloca memória para 10 inteiros
+    p = malloc(20 * sizeof(int)); // Aloca mais memória para 20 inteiros, sem liberar a memória anterior
     return 0;
 }
 
-Neste programa, o ponteiro ptr é inicialmente alocado para armazenar espaço para 10 inteiros, mas depois é realocado para armazenar espaço para 20 inteiros, sem liberar a memória alocada anteriormente. Isso resulta em uma perda de referência para a memória originalmente alocada e causa um vazamento de memória, pois essa memória nunca será desalocada.
+Neste programa, o ponteiro p é inicialmente alocado para armazenar espaço para 10 inteiros, mas depois é realocado para armazenar espaço para 20 inteiros, sem liberar a memória alocada anteriormente. Isso resulta em uma perda de referência para a memória originalmente alocada e causa um vazamento de memória, pois essa memória nunca será desalocada.
 
 
 Exemplo 3
@@ -641,94 +673,119 @@ Exemplo 3
 #include <stdlib.h>
 
 int main() {
-    int *ptr = malloc(sizeof(int)); // Aloca memória dinamicamente
-    ptr = NULL; // Libera a referência para a memória sem desalocá-la
+    int *p = malloc(sizeof(int)); // Aloca memória dinamicamente
+    p = NULL; // Libera a referência para a memória sem desalocá-la
     return 0;
 }
 
-Neste programa, o ponteiro ptr é inicialmente alocado para armazenar espaço para um inteiro, mas depois a referência para essa memória é perdida ao atribuir NULL a ptr, sem desalocar a memória previamente alocada. Isso resulta em uma perda de memória, pois não há mais como acessar ou liberar a memória alocada.
+Neste programa, o ponteiro p é inicialmente alocado para armazenar espaço para um inteiro, mas depois a referência para essa memória é perdida ao atribuir NULL a p, sem desalocar a memória previamente alocada. Isso resulta em uma perda de memória, pois não há mais como acessar ou liberar a memória alocada.
 
----------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Questao 14:
 
-O que é um ponteiro para uma função? Pesquise na Internet referências sobre o assunto e
-escreva um pequeno programa exemplificando o uso deste recurso. Explique seu programa,
-comentando cada uma das linhas de código.
+O que é um ponteiro para uma função? Pesquise na Internet referências sobre o assunto e escreva um pequeno programa exemplificando o uso deste recurso. Explique seu programa, comentando cada uma das linhas de código.
 
 <resposta da questao 14>
 
-Um ponteiro para uma função em C é um tipo de dado que armazena o endereço de memória de uma função. Assim como os ponteiros para variáveis, os ponteiros para funções também podem ser utilizados para acessar e manipular funções de forma dinâmica durante a execução do programa.
+Um ponteiro para uma função em C é um tipo de dado que armazena o endereço de memória de uma função. Assim como os ponteiros para variáveis, os ponteiros para funções também podem ser utilizados para acessar e manipular funções de forma dinâmica durante a execução do programa. Isso oferece flexibilidade ao seu programa, pois permite que você, por exemplo, passe uma função como argumento para outra função ou a armazene em uma estrutura de dados para ser usada posteriormente, possibilitando uma programação mais dinâmica e poderosa.
 
+Exemplo de um programa em C onde usamos ponteiros para funções:
 
-A declaração de um ponteiro para uma função segue o seguinte formato:
+#include <stdio.h>
 
-tipo_retorno (*nome_ponteiro_para_funcao)(lista_de_tipos_de_parametros);
-
+// Definição da função soma
 int soma(int a, int b) {
     return a + b;
 }
 
-Você pode declarar um ponteiro para esta função da seguinte maneira:
-
-int (*ponteiro_para_funcao)(int, int);
-
-Você pode atribuir o endereço da função soma a este ponteiro assim:
-
-ponteiro_para_funcao = soma;
-
-E agora você pode usar o ponteiro para chamar a função da mesma maneira que faria com a função original:
-
-int resultado = ponteiro_para_funcao(3, 4); // resultado será 7
-
-Isso oferece flexibilidade ao seu programa, pois permite que você, por exemplo, passe uma função como argumento para outra função ou a armazene em uma estrutura de dados para ser usada posteriormente, possibilitando uma programação mais dinâmica e poderosa.
-
-Exemplo de um programa onde usamos ponteiros para funções
-
-#include <stdio.h>
-
-// Função de soma normal
-int soma_normal(int a, int b) {
-    return a + b;
+// Definição da função produto
+int produto(int a, int b) {
+    return a * b;
 }
 
-// Função de soma dos quadrados
-int soma_quadrado(int a, int b) {
-    return (a * a) + (b * b);
-}
+// Declaração  das funções
+int soma(int a, int b);
+int produto(int a, int b);
 
 int main() {
-    // Ponteiro para função
-    int (*ponteiro_para_soma)(int, int);
+    int num1, num2;
+    printf("Digite dois números inteiros: ");
+    scanf("%d %d", &num1, &num2);
 
-    // Atribui o endereço da função de soma normal ao ponteiro
-    ponteiro_para_soma = soma_normal;
+    // Declaração dos ponteiros para funções
+    int (*funcaoSoma)(int, int) = soma;
+    int (*funcaoProduto)(int, int) = produto;
 
-    // Usa o ponteiro para chamar a função de soma normal
-    int resultado1 = ponteiro_para_soma(3, 4);
-    printf("Resultado da soma normal: %d\n", resultado1);
+    // Chama as funções através dos ponteiros
+    int resultadoSoma = funcaoSoma(num1, num2);
+    int resultadoProduto = funcaoProduto(num1, num2);
 
-    // Atribui o endereço da função de soma dos quadrados ao ponteiro
-    ponteiro_para_soma = soma_quadrado;
-
-    // Usa o ponteiro para chamar a função de soma dos quadrados
-    int resultado2 = ponteiro_para_soma(3, 4);
-    printf("Resultado da soma dos quadrados: %d\n", resultado2);
+    // Exibe os resultados
+    printf("Soma: %d\n", resultadoSoma);
+    printf("Produto: %d\n", resultadoProduto);
 
     return 0;
 }
 
----------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
 Questao 15:
 
-Implemente em linguagem C uma função em um programa de computador que leia n valores do
-tipo float e os apresente em ordem crescente. Utilize alocação dinâmica de memória para
+Implemente em linguagem C uma função em um programa de computador que leia n valores do tipo float e os apresente em ordem crescente. Utilize alocação dinâmica de memória para
 realizar a tarefa.
 
 <resposta da questao 15>
 
----------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Função para ler os valores e apresentá-los em ordem crescente
+void lerEOrdenarValores(int n) {
+    // Aloca dinamicamente um array para armazenar os valores
+    float *valores = (float *)malloc(n * sizeof(float));
+    // Lê os valores
+    printf("Digite os valores:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &valores[i]);
+    }
+
+    // Algoritmo de ordenação - Bubble Sort
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (valores[j] > valores[j + 1]) {
+                // Troca os valores
+                float temp = valores[j];
+                valores[j] = valores[j + 1];
+                valores[j + 1] = temp;
+            }
+        }
+    }
+
+    // Apresenta os valores em ordem crescente
+    printf("Valores em ordem crescente:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", valores[i]);
+    }
+    printf("\n");
+
+    // Libera a memória alocada
+    free(valores);
+}
+
+int main() {
+    int n;
+    printf("Digite a quantidade de valores a serem inseridos: ");
+    scanf("%d", &n);
+
+    lerEOrdenarValores(n);
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 Questao 16:
 
@@ -738,60 +795,151 @@ código, explicando o que faz cada uma das linhas.
 
 <resposta da questao 16>
 
----------------------------
+#include <stdio.h>
+#include <stdlib.h>
+
+// Função para comparar dois floats (necessária para a função qsort)
+int comparaFloats(const void *a, const void *b) {
+    float floatA = *((float*)a);
+    float floatB = *((float*)b);
+
+    if (floatA < floatB)
+        return -1;
+    else if (floatA > floatB)
+        return 1;
+    else
+        return 0;
+}
+
+// Função para ordenar um array de floats em ordem crescente
+void ordenaFloats(float *valores, int n) {
+    qsort(valores, n, sizeof(float), comparaFloats);
+}
+
+int main() {
+    int n;
+
+    printf("Digite o número de valores a serem ordenados: ");
+    scanf("%d", &n);
+
+    // Alocação dinâmica de memória para armazenar os valores
+    float *valores = (float*)malloc(n * sizeof(float));
+   
+
+    // Leitura dos valores
+    printf("Digite os valores:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &valores[i]);
+    }
+
+    // Ordena os valores
+    ordenaFloats(valores, n);
+
+    // Exibe os valores ordenados
+    printf("Valores ordenados:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", valores[i]);
+    }
+    printf("\n");
+
+    // Libera a memória alocada
+    free(valores);
+
+    return 0;
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 Questao 17:
 
-Utilize a ideia do ponteiro para função pela função qsort() para implementar sua própria
-função de ordenação, mas que seja capaz de ordenar apenas inteiros do tipo int. Para isso, sua
-função deverá receber, entre outros argumentos, um ponteiro para a função de comparação
-que determinará como os elementos do array serão ordenados.
+Utilize a ideia do ponteiro para função pela função qsort() para implementar sua própria função de ordenação, mas que seja capaz de ordenar apenas inteiros do tipo int. Para isso, sua
+função deverá receber, entre outros argumentos, um ponteiro para a função de comparação que determinará como os elementos do array serão ordenados.
 
 
 <resposta da questao 17>
 
----------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 
 Questao 18:
 
-Procure na internet mecanismos que possibilitem medir tempos de execução de rotinas
-computacionais. Geralmente, estas medidas são realizadas com o auxílio de funções em C que
-lêem a hora no sistema (sistemas Unix e Windows geralmente usam funções diferentes).
-Utilizando os conhecimentos que você obteve com sua pesquisa, meça os tempos de execução
-das implementações que você criou para os dois problemas de ordenação anteriores,
-considerando apenas arrays de elementos tipo int e compare os resultados obtidos. O que se
-conclui nesse caso?
+Procure na internet mecanismos que possibilitem medir tempos de execução de rotinas  computacionais. Geralmente, estas medidas são realizadas com o auxílio de funções em C que lêem a hora no sistema (sistemas Unix e Windows geralmente usam funções diferentes).  Utilizando os conhecimentos que você obteve com sua pesquisa, meça os tempos de execução das implementações que você criou para os dois problemas de ordenação anteriores,  considerando apenas arrays de elementos tipo int e compare os resultados obtidos. O que se conclui nesse caso?
 
 
 <resposta da questao 18>
 
----------------------------
+-----------------------------------------------------------------------------------------------------------------------------
 
 Questao 19:
 
-Escreva uma função em linguagem C que escreva em um vetor a soma dos elementos
-correspondentes de outros dois vetores (os tamanhos dos vetores devem ser fornecidos pelo
-usuário). Por exemplo, se o primeiro vetor contiver os elementos 1, 3, 0 e -2, e o segundo vetor
-contiver os elementos 3, 5, -3 e 1, o vetor de soma terá valores resultantes iguais a 4, 8, -3 e -1. A
-função deve receber 4 argumentos: os nomes dos três vetores e o número de elementos
-presentes em cada vetor. Exemplo:
+Escreva uma função em linguagem C que escreva em um vetor a soma dos elementos correspondentes de outros dois vetores (os tamanhos dos vetores devem ser fornecidos pelo usuário). Por exemplo, se o primeiro vetor contiver os elementos 1, 3, 0 e -2, e o segundo vetor contiver os elementos 3, 5, -3 e 1, o vetor de soma terá valores resultantes iguais a 4, 8, -3 e -1. A função deve receber 4 argumentos: os nomes dos três vetores e o número de elementos presentes em cada vetor. Exemplo:
 
 soma_vetores(vet1, vet2, resultado, 4);
 
 <resposta da questao 19>
 
----------------------------
+#include <stdio.h>
+#include <stdlib.h>
+
+void soma_vetores(const int *vetor1, const int *vetor2, int *resultado, int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        resultado[i] = vetor1[i] + vetor2[i];
+    }
+}
+
+int main() {
+    int tamanho;
+
+    // Obter o tamanho dos vetores do usuário
+    printf("Digite o tamanho dos vetores: ");
+    scanf("%d", &tamanho);
+
+    // Alocar memória para os vetores
+    int *vetor1 = (int *)malloc(tamanho * sizeof(int));
+    int *vetor2 = (int *)malloc(tamanho * sizeof(int));
+    int *resultado = (int *)malloc(tamanho * sizeof(int));
+
+    // Verificar alocamento de memória
+    if (vetor1 == NULL || vetor2 == NULL || resultado == NULL) {
+        printf("Erro de alocação de memória.\n");
+        return 1;
+    }
+
+    // Obter os valores para o primeiro vetor
+    printf("Digite os elementos do primeiro vetor:\n");
+    for (int i = 0; i < tamanho; i++) {
+        scanf("%d", &vetor1[i]);
+    }
+
+    // Obter os valores para o segundo vetor
+    printf("Digite os elementos do segundo vetor:\n");
+    for (int i = 0; i < tamanho; i++) {
+        scanf("%d", &vetor2[i]);
+    }
+
+    // Calcular a soma dos vetores
+    soma_vetores(vetor1, vetor2, resultado, tamanho);
+
+    // Exibir o vetor resultado
+    printf("A soma dos vetores é:\n");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", resultado[i]);
+    }
+    printf("\n");
+
+    // Liberar memória alocada
+    free(vetor1);
+    free(vetor2);
+    free(resultado);
+
+    return 0;
+}
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 Questao 20:
 
-Crie uma função capaz de realizar multiplicação matricial da forma C = AxB. A função deve
-receber 6 argumentos: os ponteiros para as matrizes A, B e C, o número de linhas e colunas de A
-e o número de colunas de B (assuma que o número de coluna de A é igual ao número de linhas
-de B). O resultado da multiplicação deve ficar armazenado em C. Crie um programa para testar
-sua implementação, capaz de utilizar a função de multiplicação e imprimir as três matrizes. A
-função criada para multiplicação não deve realizar nenhum tipo de saída de dados no terminal.
-Exemplo: para multiplicar duas matrizes (A e B) de dimensões 2x3 e 3x4, respectivamente (o
-resultado deve ficar armazenado em C).
+Crie uma função capaz de realizar multiplicação matricial da forma C = AxB. A função deve receber 6 argumentos: os ponteiros para as matrizes A, B e C, o número de linhas e colunas de A e o número de colunas de B (assuma que o número de coluna de A é igual ao número de linhas de B). O resultado da multiplicação deve ficar armazenado em C. Crie um programa para testar sua implementação, capaz de utilizar a função de multiplicação e imprimir as três matrizes. A função criada para multiplicação não deve realizar nenhum tipo de saída de dados no terminal. Exemplo: para multiplicar duas matrizes (A e B) de dimensões 2x3 e 3x4, respectivamente (o resultado deve ficar armazenado em C).
 
 multiplica_matrizes(A, B, C, 2, 3, 4);
 
@@ -799,17 +947,11 @@ multiplica_matrizes(A, B, C, 2, 3, 4);
 
 
 
----------------------------
+----------------------------------------------------------------------------------------------------------------------------------
 
 Questao 21:
 
-(ENADE, 2023) Memory leak, ou vazamento de memória, é um problema que ocorre em
-sistemas computacionais quando uma parte da memória, alocada para uma determinada
-operação, não é liberada quando se torna desnecessária. Na linguagem C, esse tipo de problema
-é quase sempre relacionado ao uso incorreto das funções malloc( ) e free( ). Esse erro de
-programação pode levar a falhas no sistema se a memória for completamente consumida. Um
-dos trechos abaixo apresenta um vazamento de memória. Identifique-o e justifique sua
-resposta.
+(ENADE, 2023) Memory leak, ou vazamento de memória, é um problema que ocorre em sistemas computacionais quando uma parte da memória, alocada para uma determinada operação, não é liberada quando se torna desnecessária. Na linguagem C, esse tipo de problema é quase sempre relacionado ao uso incorreto das funções malloc( ) e free( ). Esse erro de programação pode levar a falhas no sistema se a memória for completamente consumida. Um dos trechos abaixo apresenta um vazamento de memória. Identifique-o e justifique sua resposta.
 
 A void f( ){
 void *s;
@@ -855,33 +997,29 @@ free(n);
 }
 
 
-
-
 <resposta da questao 21>
 
----------------------------
+O trecho onde identificamos um vazamento de memória é o seguinte:
+
+
+E void f(int n){
+char *m = malloc(10);
+char *n = malloc(10);
+free(m);
+m = n;
+free(m);
+free(n);
+}
+
+Nesse trecho a função f aloca memória para o ponteiro m usando malloc(10). Em seguida, aloca memória para o ponteiro n também usando malloc(10). A memória alocada para m é liberada corretamente usando free(m). Em seguida, o valor do ponteiro n é atribuído ao ponteiro m (m = n;), fazendo com que m agora aponte para a mesma memória que n. A memória alocada para m é novamente liberada com free(m). No entanto, como m aponta para a mesma memória que n agora, essa linha libera a memória previamente alocada para n. Finalmente, a memória alocada para n é liberada corretamente com free(n). Portanto, o trecho de código apresenta um vazamento de memória porque a memória alocada para n não é mais liberada após a atribuição m = n;.
+
+
+----------------------------------------------------------------------------------------------------------------------------
 
 Questao 22:
 
 
-(ENADE, 2023) Na programação de sistemas embarcados, algumas posições de memória servem
-para diferentes propósitos, não apenas para armazenar valores. Em algumas dessas memórias,
-cada
-um
-os
-bits
-possui
-um
-significado
-diferente,
-sendo
-necessário
-manipulá-los
-individualmente ou em pequenos grupos. Por isso, o conhecimento da álgebra booliana, bem
-como dos operadores tilizados para realizar operações binárias nas linguagens de programação,
-é essencial para o desenvolvimento desse tipo de sistema. A partir dessas informações, observe
-o código apresentado a seguir, escrito na linguagem C, que faz uso de operações binárias sobre
-variáveis inteiras.
+(ENADE, 2023) Na programação de sistemas embarcados, algumas posições de memória servem para diferentes propósitos, não apenas para armazenar valores. Em algumas dessas memórias, cada um os bits possui um significado diferente, sendo necessário manipulá-los individualmente ou em pequenos grupos. Por isso, o conhecimento da álgebra booleana, bem como dos operadores tilizados para realizar operações binárias nas linguagens de programação, é essencial para o desenvolvimento desse tipo de sistema. A partir dessas informações, observe o código apresentado a seguir, escrito na linguagem C, que faz uso de operações binárias sobre variáveis inteiras.
 
 
 #include <stdio.h>
@@ -903,9 +1041,30 @@ return 0;
 
 Após a chamada desse programa, caso o usuário entre com os valores 10 e 1, nessa ordem, qual
 será, exatamente, o valor da saída do programa?
+
+O funcionamento desse programa é o seguinte:
+
+O programa lê dois números inteiros a e b fornecidos pelo usuário. Inicializa as variáveis x, y e z com os valores de a, b e a + b, respectivamente.
+Entra em um loop while que continua enquanto a for diferente de zero.
+Durante cada iteração do loop:
+x = x | b;: realiza uma operação de OR (ou) bit a bit entre x e b, atribuindo o resultado de volta a x.
+y = y ^ a;: realiza uma operação de XOR (ou exclusivo) bit a bit entre y e a, atribuindo o resultado de volta a y.
+z = z & (a+b);: realiza uma operação de AND bit a bit entre z e a+b, atribuindo o resultado de volta a z.
+a = a >> 1;: desloca a para a direita em uma posição, o que é equivalente a dividir a por 2.
+b = b << 1;: desloca b para a esquerda em uma posição, o que é equivalente a multiplicar b por 2.
+Quando a se torna zero, o loop termina.
+
+Imprime os valores finais de x, y e z 15, 13 e 0. A explicação é a seguinte:
+
+Entrando com os valores 10 e 1 nessa ordem, o programa irá ler a=10 e b=1. Em seguida x = a; y = b; z = a + b faz com que x=10, y=1 e z=11.
+
+O loop vai iniciar com a=10.  Dentro do loop, xb= x OR b, ou seja,  x=10=(1010)_2 | b=1=(0001)_2  (OR (ou) bit a bit - É 1 quando pelo menos um dos dois bits comparados é 1) x=(1011)_2=11.
+Agora y^a = y XOR a, ou seja, y=1=(0001)_2 XOR a=10=(1010)_2 (XOR é 1 quando apenas um dos bites comparados bit é 1 e 0 caso contrário).
+
+
 <resposta da questao 22>
 
----------------------------
+----------------------------------------------------------------------------------------------------------------------------------
 
 Questao 23:
 
@@ -939,10 +1098,13 @@ return 0;
 }
 
 A respeito das funções implementadas, avalie as afirmações a seguir.
+
 I. O resultado da impressão na linha 24 é: 7 - 7.
 II. A função funcao1, no pior caso, é uma estratégia mais rápida do que a funcao2.
 III. A função funcao2 implementa uma estratégia iterativa na concepção do algoritmo.
+
 É correto o que se afirma em:
+
 IV. I, apenas.
 V. III, apenas.
 VI. I e II, apenas.
@@ -953,57 +1115,97 @@ Justifique sua resposta.
 
 <resposta da questao 23>
 
----------------------------
+Apenas a I é correta.
+
+Vamos descrever a execução do programa a partir do main.
+
+Inicialmente o vetor[TAM] recebe {1, 3, 5, 7, 9, 11, 13, 15, 17, 19}.
+
+Em seguida a funcao1 é chamada 
+
+int funcaol(int vetor[], int v){
+int i;
+for (i = 0; i < TAM; i++){
+if (vetor[i] == v)
+return i;
+}
+
+Nesse trecho  se  v[i] for igual ao inteiro v=15, ela retorna o número i. Ora, como entre as coordenadas do vetor[TAM] só aparece um 15 na posição i=7, segue que a expressão funcao1(vetor, 15) retorna como resposta o número 7.
+
+Em seguida aparece a expressão funcao2(int vetor[], int v, int i, int f)=funcao2(int vetor[], 15, 0,  9). A funcao2(vetor, 15, 0, TAM - 1): Realiza a busca  pelo valor 15 no array vetor e retorna o índice onde esse valor é encontrado ou -1 caso contrário. No caso, o valor 15 é encontrado no índice 7 do array vetor.
+
+Portanto, a saída impressa será 7 - 7. Isso indica que tanto a função funcaol quanto a função funcao2 retornam o mesmo índice para o valor 15 no array vetor, o que revela que a afirmação I é correta. 
+
+
+A firmação II é falsa, pois a funcao1 e a funcao2 fazem basicamente a mesma coisa a busca pelo 15 e registrar o índice da posição onde o 15 de senconte no vetor[TAM].
+
+A airmação III também é falsa. A funcao2 não recebe um valor a partir dos seus valores anteriores, o que não caracterizaria uma estratégia iterativa na concepção do algoritmo.
+
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 24:
 
-Um usuário precisa implementar o controle de uma matriz de leds com 8 x 8 elementos. Para
-isso, ele criou um programa em C dotado de uma matriz da forma
-
-unsigned char m[8][8];
-
-para armazenar os estados dos leds. Como existem apenas dois estados possíveis para os leds
-(aceso ou apagado), ele assumiu que leds acessos seriam denotados pelo inteiro "1" nessa matriz
-e leds apagados seriam denotados pelo inteiro "0".
-Ocorre que a função que controla os leds exige que a informação que controla a matriz seja
-enviada via porta serial usando uma função que recebe um único inteiro não sinalizado de
-64 bits, da forma send(unsigned long estado). Nesse inteiro, os bytes mais significativos deverão
-guardar os estados das linhas iniciais da matriz de leds, enquanto os bytes menos significativos
-devem guardar os estados das linhas finais da matriz. Assim, é necessário que cada estado
-previsto na matriz m seja codificado em um bit correspondente na variável enviada pela função.
-Crie um programa em linguagem C para realizar essa codificação e explique na forma de
-comentários como sua codificação da matriz m na variável de 64 bits foi realizada.
+Um usuário precisa implementar o controle de uma matriz de leds com 8 x 8 elementos. Para isso, ele criou um programa em C dotado de uma matriz da forma unsigned char m[8][8]; para armazenar os estados dos leds. Como existem apenas dois estados possíveis para os leds (aceso ou apagado), ele assumiu que leds acessos seriam denotados pelo inteiro "1" nessa matriz e leds apagados seriam denotados pelo inteiro "0". Ocorre que a função que controla os leds exige que a informação que controla a matriz seja enviada via porta serial usando uma função que recebe um único inteiro não sinalizado de 64 bits, da forma send(unsigned long estado). Nesse inteiro, os bytes mais significativos deverão guardar os estados das linhas iniciais da matriz de leds, enquanto os bytes menos significativos devem guardar os estados das linhas finais da matriz. Assim, é necessário que cada estado previsto na matriz m seja codificado em um bit correspondente na variável enviada pela função. Crie um programa em linguagem C para realizar essa codificação e explique na forma de comentários como sua codificação da matriz m na variável de 64 bits foi realizada.
 
 <resposta da questao 24>
 
----------------------------
+
+#include <stdio.h>
+
+// Define o tamanho da matriz
+#define LINHAS 8
+#define COLUNAS 8
+
+// Função para enviar o estado via porta serial (simulada aqui)
+void send(unsigned long estado) {
+    printf("Estado enviado via porta serial: %lu\n", estado);
+}
+
+int main() {
+    // Matriz de leds
+    unsigned char m[LINHAS][COLUNAS] = {
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1}
+    };
+
+    // Variável para armazenar o estado codificado de 64 bits
+    unsigned long estado = 0;
+
+    // Codificação da matriz na variável de 64 bits
+    for (int i = 0; i < LINHAS; i++) {
+        for (int j = 0; j < COLUNAS; j++) {
+            // Desloca os bits da variável estado para a esquerda e adiciona o estado do LED atual
+            estado = (estado << 1) | m[i][j];
+        }
+    }
+
+    // Envia o estado via porta serial
+    send(estado);
+
+    return 0;
+}
+
+--------------------------------------------------------------------------------------------------------------------
 
 Questao 25:
 
-Um programador precisa desenvolver uma aplicação em linguagem C para manipular matrizes
-capazes de armazenar representações de modelos tridimensionais.
+Um programador precisa desenvolver uma aplicação em linguagem C para manipular matrizes  capazes de armazenar representações de modelos tridimensionais. Entende-se que o tamanho da matriz é definido pelo usuário e esta deve ser alocada dinamicamente usando malloc() em tempo de execução. O processo de criar um modelo na matriz consiste em atribuir aos seus elementos os valores inteiros “1” ou “0” para simbolizar que há ou não parte do modelo naquela posição. Uma analogia para o modelo seria que a criação funciona como no jogo "Minecraft", onde "0" representaria a ausência de objeto e "1" representaria a presença de objetos. Nesta aplicação, as matrizes devem ser definidas como tipos de dados int. Isto posto, pede-se que o programador prepare os algoritmos de alocação dinâmica (usando malloc()/free()) para guardar os dados da matriz tridimensional e crie um programa de testes para verificar se a sua implementação foi realizada corretamente de modo a garantir as seguintes condições:
 
-Entende-se que o tamanho da matriz é definido pelo usuário e esta deve ser alocada
-dinamicamente usando malloc() em tempo de execução. O processo de criar um modelo na
-matriz consiste em atribuir aos seus elementos os valores inteiros “1” ou “0” para simbolizar
-que há ou não parte do modelo naquela posição. Uma analogia para o modelo seria que a
-criação funciona como no jogo "Minecraft", onde "0" representaria a ausência de objeto e "1"
-representaria a presença de objetos.
-Nesta aplicação, as matrizes devem ser definidas como tipos de dados int. Isto posto, pede-se
-que o programador prepare os algoritmos de alocação dinâmica (usando malloc()/free()) para
-guardar os dados da matriz tridimensional e crie um programa de testes para verificar se a sua
-implementação foi realizada corretamente de modo a garantir as seguintes condições:
-a. O usuário do programa de testes deverá poder fornecer o tamanho da matriz tridimensional
-que deseja manipular, inserindo as dimensões da altura, largura e profundidade desta.
-b. O usuário do programa de testes poderá solicitar a impressão de um dos planos da matriz
-tridimensional.
-c. O usuário do programa de testes poderá modificar o estado de um dos elementos da matriz.
-Insira no seu código comentários para indicar como as posições da matriz poderão ser
-acessadas.
+a. O usuário do programa de testes deverá poder fornecer o tamanho da matriz tridimensional que deseja manipular, inserindo as dimensões da altura, largura e profundidade desta.
+
+b. O usuário do programa de testes poderá solicitar a impressão de um dos planos da matriz tridimensional.
+
+c. O usuário do programa de testes poderá modificar o estado de um dos elementos da matriz. Insira no seu código comentários para indicar como as posições da matriz poderão ser acessadas.
 
 <resposta da questao 25>
 
----------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 
 
