@@ -1,5 +1,5 @@
 Nome: Carlos Alexandre Gomes da Silva
-Matricula: 20220032813
+Matrícula: 20220032813 - Engenharia Elétrica
 
 Questao 1: 
 
@@ -10,10 +10,17 @@ int *p, *q;
 p = &i;
 q = &j;
 
+Determine o valor das seguintes expressões, justificando o porquê de cada resultado:
+
+a)p == &i;
+b)*p - *q;
+c)**&p;
+d) 3 - *p/(*q) + 7;
+
 <resposta da questao 1>
 
 a)p == &i 
-Essa sentença é verdadeira. De fato, a variável i é inteira enquanto a variável p é um ponteiro para inteiro (portanto recebe um endereço onde está armazenado um inteiro). Na terceira linha do trecho do programa dado o ponteiro p recebe exatamente o endereço da variável inteira i através do operador "&" posto na frente da variável i, o que faz retornar exatemente o endereço onde está guardada a variável i na memória.
+Essa sentença é verdadeira. De fato, a variável i é inteira enquanto a variável p é um ponteiro para inteiro (portanto recebe um endereço onde está armazenado um inteiro). Na terceira linha do trecho do programa dado o ponteiro p recebe exatamente o endereço da variável inteira i através do operador "&" posto na frente da variável i, o comando &i faz retornar exatemente o endereço onde está guardada a variável i na memória.
 
 b)Como p e q são ponteiros para inteiros, no corpo do programa *p e *q  recuperam os conteúdos dos endereços para os quais os ponteiros p e q apontam. Assim, 
 *p-*q=(conteúdo do endereço para onde p aponta) - (conteúdo do endereço para onde p aponta). Ora, como nas duas últimas linhas temos p=&i  e  q=&j, segue que
@@ -24,7 +31,7 @@ c)Na liguagem C, sabemos que "&" é o operador endereço, ou seja, quando coloca
 d)Como *p e *q correspondem aos conteúdos dos ponteiros para inteiros p e q , segue que  expressão  3 - *p/(*q) + 7 corresponde a  3 - 3/5 + 7=3-0+7=10.
 
 
----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 2: 
 
@@ -48,9 +55,10 @@ No item (c) da questão 1, já discutimos que **&p corresponde a *p, ou seja, o 
 
 O comando 3**p significa 3 vezes o conteúdo de p, ou seja 3 x 5 = 15 (o primeiro asterisco representa a operação de multiplicação, já o segundo representa a exibição do conteúdo do endereço para onde o ponteiro p aponta). 
 
-Por fim, **&p+4 corresponde a soma entre o conteúdo do ponteiro p (pois **&p=*p=5) e o número 4, ou seja, **&p+4=5+4=9.
+Por fim, **&p+4 corresponde a soma entre o conteúdo do ponteiro p (pois **&p=*p=5) e o número 4, ou seja, 
+**&p+4=5+4=9.
 
----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 3: 
 
@@ -68,13 +76,13 @@ h)i = (*p)++ + *q;
 
 <resposta da questao 3>
 
-a)A expressão p = &i faz sentido, pois &i retorna o endereço da variável inteira i e sendo p um ponteiro para inteiro o tipo de dado que ele pode receber é exatamente um endereço de uma variável do tipo inteira. Portanto a expessão p=&i atribui ao ponteiro o endereço de memória onde está guardado o contaúdo da varíavel i. 
+a)A expressão p = &i faz sentido, pois &i retorna o endereço no qual está armazenado o contaúdo da variável inteira i e sendo p um ponteiro para inteiro o tipo de dado que ele pode receber é exatamente um endereço de uma variável do tipo inteira. Portanto a expessão p=&i atribui ao ponteiro o endereço de memória onde está guardado o conteúdo da varíavel i. 
 
 b)A expressão *q = &j é permitida. Ela faz com que o ponteiro para inteiro q aponte para o endereço da variável inteira j. Por exemplo,
 
-int x = 10;
-int *p = &x; // p aponta para o endereço de x
-printf("%d", *p); // Isso imprimirá o valor de x, ou seja, 10
+int j = 10;
+int *p = &j; // p aponta para o endereço de j
+printf("%d", *p); // Isso imprimirá o valor de j, ou seja, 10
 
 
 
@@ -86,14 +94,14 @@ c) A expressão p = &*&i faz sentido em C. Vamos analisar essa expressão passo 
 p =: Atribui esse endereço ao ponteiro p.
 Portanto, no final, o ponteiro p estará apontando para o endereço da variável i.
 
-d) A expressão i = (*&)j não é válida em C, os parênteses em geral dão a ideia de prioridade, portanto na~ofaz sentido (*&), visto que * e & são operadores que agem sobre variáveis e no interior dos parênteses (que  teria prioridade no compilador) *& não agem sobre enhuma variável.
+d) A expressão i = (*&)j não é válida em C, os parênteses em geral dão a ideia de prioridade, portanto não faz sentido (*&), visto que * e & são operadores que agem sobre variáveis e no interior dos parênteses (que  teria prioridade para o compilador) nesse caso * e & não agem sobre nenhuma variável.
 
-e) Aexpressão i = *&j faz sentido em C. Vejamos como explicar o que essa expressão faz:
+e) A expressão i = *&j faz sentido em C. Vejamos como explicar o que essa expressão faz:
 
 &j: Retorna o endereço da variável j.
 *: Desreferencia o endereço obtido em &j, ou seja, acessa o valor armazenado nesse endereço.
 i =: Atribui esse valor à variável i.
-Então, em resumo, i receberá o valor de j, o que faz pleno sentido pois tanto i como j são variáveis do tio inteiro.
+Então, em resumo, i receberá o valor de j, o que faz pleno sentido pois tanto i como j são variáveis do tipo inteiro.
 
 
 f)A expressão i = *&*&j faz sentido em C. Vejamos como explicar o que essa expressão faz:
@@ -104,7 +112,7 @@ f)A expressão i = *&*&j faz sentido em C. Vejamos como explicar o que essa expr
 *: Desreferencia o endereço obtido em &, ou seja, acessa o valor armazenado nesse endereço, que é o valor de j.
 i =: Atribui esse valor à variável i.
 
-g)Em C, a expressão q=*p faz sentido. Ela atriu ao ponteiro q o conteúdo do ponteiro p. Vejamos um exemplo:
+g)Em C, a expressão q=*p faz sentido. Ela atribuiu ao ponteiro q o conteúdo do ponteiro p. Vejamos um exemplo:
  
     int x = 42;
     int *p, *q;
@@ -112,7 +120,7 @@ g)Em C, a expressão q=*p faz sentido. Ela atriu ao ponteiro q o conteúdo do po
     q = &x; // q aponta para o endereço de x
     p = *q; // p recebe o valor apontado por q
 
-    printf("O valor de p é: %d\n", p); // Imprime o valor de p
+    printf("O valor de p é: %d\n", p); // Imprime o valor que está armazenado no local de memória para onde p aponta, ou seja, o valor de x que é 42.
 
 h)A expressão i = (*p)++ + *q faz sentido em C. Vejamos:
 
@@ -125,7 +133,8 @@ O operador ++ após o parêntese faz o pós-incremento, o que significa que prim
 Depois disso, os valores desreferenciados de p e q são somados o valor final é atribuído à variável i.
 
 
----------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
+
 Questao 4: 
 
 
@@ -233,25 +242,25 @@ t
 
 Vamos à análise dos resultados:
 
-Trecho (a): A variável valor inicia com o conteúdo 10, o ponteiro p1 recebo o endereço da variável valor, depois o conteúdo do endereço para onde p1 aponta é modificado para 20 e por fim é impresso o 20, como é esperado.
+Trecho (a): A variável valor inicia com o conteúdo 10, o ponteiro p1 recebe o endereço da variável valor, depois o conteúdo do endereço para onde p1 aponta é modificado para 20 e por fim é impresso o 20, como é esperado.
 
 Trecho (b): A variável temp recebe inicialmente o valor 26.5. Em seguida o ponteiro p2 recebe o endereço de memória onde está guardado o conteúdo da variável temp. Em seguida o conteúdo do endereço para onde p2 aponta recebe o valor 29.0. Por fim é impresso o valor 29.0, como o esperado.
 
-Trecho (c): Nesse trecho o ponteiro p3 (do tipo char) recebe o endereço correspondente a primeira posição da variável nome (do tipo char), cujo conteúdo é a palavra "Ponteiros". Dessa forma p3 aponta para o endereço de memória onde está guardada a letra P. No passo seguinte a variável aux (do tipo char) recebe o conteúdo para onde p3 aponta, ou seja recebe a letra P. Por fim, é impresso o conteúdo da variável aux, que é justamente a letra P.  
+Trecho (c): Nesse trecho o ponteiro p3 (do tipo char) recebe o endereço correspondente a primeira posição da variável nome (do tipo char), cujo conteúdo é a palavra "Ponteiros". Dessa forma p3 aponta para o endereço de memória onde está guardada a letra P. No passo seguinte a variável aux (do tipo char) recebe o conteúdo do endereço para onde p3 aponta, ou seja recebe a letra P. Por fim, é impresso o conteúdo da variável aux, que é justamente a letra P.  
 
 
-Trecho (d):  Nesse trecho o ponteiro p3 (do tipo char) recebe o endereço correspondente a posição 4 da variável nome (do tipo char), cujo conteúdo é a palavra "Ponteiros". Dessa forma p3 aponta para o endereço de memória onde está guardada a letra "e". No passo seguinte a variável aux (do tipo char) recebe o conteúdo para onde p3 aponta, ou seja recebe a letra "e". Por fim, é impresso o conteúdo da variável aux, que é justamente a letra "e".  
+Trecho (d):  Nesse trecho o ponteiro p3 (do tipo char) recebe o endereço correspondente a posição 4 da variável nome (do tipo char), cujo conteúdo é a palavra "Ponteiros". Dessa forma p3 aponta para o endereço de memória onde está guardada a letra "e" (lembre que o índice 4 cooresponde a quinta letra). No passo seguinte a variável aux (do tipo char) recebe o conteúdo para onde p3 aponta, ou seja recebe a letra "e". Por fim, é impresso o conteúdo da variável aux, que é justamente a letra "e".  
 
 
-Trecho (e): Nesse trecho o ponteiro p3 recebe o conteúdo da variável nome (ponteiro para char, que aponta para o endereço de memória onde está guardado o conteúdo "Ponteiros"). Por fim, ao imprimir *p3 será impresso o conteúdo do endereço de memória para onde p3 aponta que contém a letra P, que é a letra que está na primeira posição.
+Trecho (e): Nesse trecho o ponteiro p3 recebe o conteúdo da variável nome (ponteiro para char, que aponta para o endereço de memória onde está guardado o conteúdo "Ponteiros"). Por fim, ao imprimir *p3 será impresso o conteúdo do endereço de memória para onde p3 aponta que contém a letra P, que é a letra que está na primeira posição da variável nome.
 
 Trecho (f): Nesse trecho, o conteúdo atual de p3 (que é o endereço de memória no qual está guardada a letra P) será acrescido de 4 unidades (o ponteiro p3 é do tipo char que ocupa 1 byte). Assim o novo valor assumido por p3 será correspondente ao conteúdo de 4 letras após a letra P na palavra Ponteiros, ou seja, a letra "e".
 
-Trecho (g): Nesse techo, o conteúdo atual de p3, que é o endereço onde está guardada a letra "e" da palavre Ponteiros será modificado para uma unicada a menos, ou seja, p3 passará a apontar  para o endereço de memória onde se enconta a letra antes do "e" que é a letra "t". Por isso na execusão do programa o comando printf("%c \n", *p3) imprime a letra "t".
+Trecho (g): Nesse techo, o conteúdo atual de p3, que é o endereço onde está guardada a letra "e" da palavra Ponteiros será modificado para uma unidade a menos, ou seja, p3 passará a apontar  para o endereço de memória onde se enconta a letra antes do "e" que é a letra "t". Por isso na execusão do programa o comando printf("%c \n", *p3) imprime a letra "t".
 
-Trecho (h): Nesse trecho do programa, a primeira posição da variável vetor (que é um array) recebe o valor 31, a segunda posição recebe 45 e a terceira posição recebe 27, ou seja, vetor=(31,45,27). Em seguida o ponteiro p4 aponta  para o endereço onde está guardada a variável vetor. Em seguida a variável idade recebe o conteúdo de p4, que é o conteudo do endereço para onde p4 aponta, ou seja, a primeira posição da variável vetor v[0] que é igual a 31, o que faz com que o comando printf("%d \n", idade) imprima o valor 31 na tela.
+Trecho (h): Nesse trecho do programa, a primeira posição da variável vetor (que é um array) recebe o valor 31, a segunda posição recebe 45 e a terceira posição recebe 27, ou seja, vetor=(31,45,27). Em seguida o ponteiro p4 aponta  para o endereço onde está guardada a variável vetor. Em seguida a variável idade recebe o conteúdo de p4, que é o conteúdo do endereço para onde p4 aponta, ou seja, a primeira posição da variável vetor, isto é,v[0] que é igual a 31, o que faz com que o comando printf("%d \n", idade) imprima o valor 31 na tela.
 
-Trecho (i): Nesse trecho o ponteriro p5 recebe o conteúdo do ponteiro p4+1. Como nesse momento o conteúdo do endereço para onde p4 aponta era 31, segue que p5 passa a apontar para o endereço de memória correspondente a próxima posicao da vaiável vetor, pou seja p5 passa a asumir o valor 45 que é a segunda posição da variável vetor.
+Trecho (i): Nesse trecho o ponteriro p5 recebe o conteúdo do ponteiro p4+1. Como nesse momento o conteúdo do endereço para onde p4 aponta era 31, segue que p5 passa a apontar para o endereço de memória correspondente a próxima posição da vaiável vetor, ou seja p5 passa a assumir o valor 45 que é a segunda posição da variável vetor.
 
 Trecho (j): Nesse trecho é atribuido ao ponteiro p4 o conteúdo de p5+1.  Como nesse momento p5 apontava para o endereço de memória onde estada guardado o número 45 (segunda posição da variável vetor), agora como "+1" , p4 passa a apontar para o endereço de memória onde está guardado o número 27, que é o conteúdo guardado na terceira posição da variáel vetor. Por isso o comando printf("%d \n", idade) imprime o valor 27 na tela.
 
@@ -259,14 +268,14 @@ Trecho (j): Nesse trecho é atribuido ao ponteiro p4 o conteúdo de p5+1.  Como 
 Trecho (l): Nesse trecho do programa o ponteiro p4, que neste momento apontava para o endereço de memória onde está  27 (terceira posição da variável vetor) recebe o conteúdo de p4-2, ou seja, "recua" duas unidades na memória, passando a apontar para o endereço de memória onde está guardado o número 31, que é a primeira posição da variável vetor. Diante do exposta, o comando printf("%d \n", idade) imprime na tela o valor 31.
 
 
-Trecho (m): Nesse trecho do programa o ponteiro p5 recebe o conteúdo &vetor[2] - 1, ou seja, recebe o endereço da segunda posição da variável vetor vetor=(vetor[0],vetor[1],vetor[2])=(31,45,27). Ou seja p5 passa a apontar para o endereço onde está guardada o número 45. Diante do exposto o comando printf("%d \n", *p5) imprimeo o conteúdo de p5 que agora é 45.
+Trecho (m): Nesse trecho do programa o ponteiro p5 recebe o conteúdo &vetor[2] - 1, ou seja, recebe o endereço da segunda posição da variável vetor vetor=(vetor[0],vetor[1],vetor[2])=(31,45,27). Ou seja, p5 passa a apontar para o endereço onde está guardada o número 45. Diante do exposto o comando printf("%d \n", *p5) imprime o o conteúdo de p5 que agora é 45.
 
-Trecho (n): Nesse trecho do programa o ponteiro p5 recebe o conteúdo p5+1. Como neste momento p5 estava apontando para o endereço correspondente a segunda posição da variável vetor, p5 passa a apontar para o endereço correspondente a terceira posição da varia´vel vetor, ou seja, p5 passa a apontar para oendereço de memória onde encontra-se o número 27. Por isso, o comando printf("%d \n", *p5) imprime o número 27 na tela.
-
-
+Trecho (n): Nesse trecho do programa o ponteiro p5 recebe o conteúdo p5+1. Como neste momento p5 estava apontando para o endereço correspondente a segunda posição da variável vetor, p5 passa a apontar para o endereço correspondente a terceira posição da variável vetor, ou seja, p5 passa a apontar para oendereço de memória onde encontra-se o número 27. Por isso, o comando printf("%d \n", *p5) imprime o número 27 na tela.
 
 
---------------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------
 
 
 Questao 5:
@@ -858,6 +867,8 @@ função deverá receber, entre outros argumentos, um ponteiro para a função d
 
 
 <resposta da questao 17>
+
+
 
 -------------------------------------------------------------------------------------------------------------------------------
 
