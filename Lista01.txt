@@ -529,6 +529,7 @@ Dado que x começa no endereço de memória 4092, temos:
 x+1 estará em 4094 (4092 + 2)
 x+2 estará em 4096 (4092 + 2*2)
 x+3 estará em 4098 (4092 + 3*2)
+
 Isso ocorre porque cada int ocupa 2 bytes e, ao somar 1 ao endereço de x, você avança 2 bytes na memória.
 
 c) Se x for declarado como um vetor de float, então x+1, x+2 e x+3 apontarão para os endereços subsequentes na memória, onde cada endereço é deslocado pelo tamanho de um elemento do tipo float.
@@ -540,6 +541,7 @@ Dado que x começa no endereço de memória 4092, temos:
 x+1 estará em 4096 (4092 + 4)
 x+2 estará em 4100 (4092 + 2*4)
 x+3 estará em 4104 (4092 + 3*4)
+
 Isso ocorre porque cada float ocupa 4 bytes e, ao somar 1 ao endereço de x, você avança 4 bytes na memória.
 
 
@@ -556,6 +558,7 @@ x+3 estará em 4116 (4092 + 3*8)
 Isso ocorre porque cada double ocupa 8 bytes e, ao somar 1 ao endereço de x, você avança 8 bytes na memória.
 
 A seguir mostramos um programa C que verifica as afirmações acima.
+
 
 
 // PROGRAMA EM C
@@ -586,7 +589,7 @@ Como em Hexadecimal c=12, d=13, e=14 e f=15, temos que os endereços exibidos ac
 Para int, float e double o programa é completamente análogo apenas redefinindo x[4] para os tipos int, float e double.
 
 
---------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 12:
 
@@ -638,7 +641,7 @@ g)A expressão pf = value não faz sentido pois pf é um ponteiro para float (e 
 
 h)A expressão pf=aloha faz sentido. Nessa expressão, pf é um ponteiro para float  e aloha é um array de floats. Um array em C é  um ponteiro para seu primeiro elemento. Portanto, aloha é o endereço de memória do primeiro elemento do array.
 
----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 13:
 
@@ -689,7 +692,7 @@ int main() {
 
 Neste programa, o ponteiro p é inicialmente alocado para armazenar espaço para um inteiro, mas depois a referência para essa memória é perdida ao atribuir NULL a p, sem desalocar a memória previamente alocada. Isso resulta em uma perda de memória, pois não há mais como acessar ou liberar a memória alocada.
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 14:
 
@@ -738,7 +741,7 @@ int main() {
 }
 
 
------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 15:
 
@@ -794,7 +797,7 @@ int main() {
     return 0;
 }
 
------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 16:
 
@@ -804,61 +807,8 @@ código, explicando o que faz cada uma das linhas.
 
 <resposta da questao 16>
 
-#include <stdio.h>
-#include <stdlib.h>
-
-// Função para comparar dois floats (necessária para a função qsort)
-int comparaFloats(const void *a, const void *b) {
-    float floatA = *((float*)a);
-    float floatB = *((float*)b);
-
-    if (floatA < floatB)
-        return -1;
-    else if (floatA > floatB)
-        return 1;
-    else
-        return 0;
-}
-
-// Função para ordenar um array de floats em ordem crescente
-void ordenaFloats(float *valores, int n) {
-    qsort(valores, n, sizeof(float), comparaFloats);
-}
-
-int main() {
-    int n;
-
-    printf("Digite o número de valores a serem ordenados: ");
-    scanf("%d", &n);
-
-    // Alocação dinâmica de memória para armazenar os valores
-    float *valores = (float*)malloc(n * sizeof(float));
-   
-
-    // Leitura dos valores
-    printf("Digite os valores:\n");
-    for (int i = 0; i < n; i++) {
-        scanf("%f", &valores[i]);
-    }
-
-    // Ordena os valores
-    ordenaFloats(valores, n);
-
-    // Exibe os valores ordenados
-    printf("Valores ordenados:\n");
-    for (int i = 0; i < n; i++) {
-        printf("%.2f ", valores[i]);
-    }
-    printf("\n");
-
-    // Libera a memória alocada
-    free(valores);
-
-    return 0;
-}
-
-
--------------------------------------------------------------------------------------------------------------------------------
+Não consegui fazer!
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 17:
 
@@ -868,9 +818,9 @@ função deverá receber, entre outros argumentos, um ponteiro para a função d
 
 <resposta da questao 17>
 
+Não consegui fazer!
 
-
--------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 18:
 
@@ -879,7 +829,9 @@ Procure na internet mecanismos que possibilitem medir tempos de execução de ro
 
 <resposta da questao 18>
 
------------------------------------------------------------------------------------------------------------------------------
+Não consegui fazer!
+
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 19:
 
@@ -946,7 +898,7 @@ int main() {
     return 0;
 }
 
--------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 20:
 
@@ -956,9 +908,9 @@ multiplica_matrizes(A, B, C, 2, 3, 4);
 
 <resposta da questao 20>
 
+Não consegui fazer!
 
-
-----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 21:
 
@@ -1025,7 +977,7 @@ free(n);
 Nesse trecho a função f aloca memória para o ponteiro m usando malloc(10). Em seguida, aloca memória para o ponteiro n também usando malloc(10). A memória alocada para m é liberada corretamente usando free(m). Em seguida, o valor do ponteiro n é atribuído ao ponteiro m (m = n;), fazendo com que m agora aponte para a mesma memória que n. A memória alocada para m é novamente liberada com free(m). No entanto, como m aponta para a mesma memória que n agora, essa linha libera a memória previamente alocada para n. Finalmente, a memória alocada para n é liberada corretamente com free(n). Portanto, o trecho de código apresenta um vazamento de memória porque a memória alocada para n não é mais liberada após a atribuição m = n;.
 
 
-----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 22:
 
@@ -1137,7 +1089,7 @@ y=(1101)_2=1.2^3+1.2^2+0.2^1+1.2^0=13
 z=(0000)_2=0
 
 
-----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 Questao 23:
 
