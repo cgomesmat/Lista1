@@ -987,7 +987,195 @@ int main() {
 A saída desse programa foi: Tempo de execução: 0.000002 segundos
 
 
+
+//Modelo de programa para medir o tempo de execução de um outro programa.
+
+Uma estrutura padrão para medir o tempo de execução de um programa seria, por exemplo
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    // Obtém o tempo inicial
+    clock_t start = clock();
+
+    // código aqui!!!
+    // ...
+
+    // Obtém o tempo final
+    clock_t end = clock();
+
+    // Calcula o tempo de execução em segundos
+    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("Tempo de execução: %.6f segundos\n", time_spent);
+
+    return 0;
+}
+
+
+
 A seguir vamos usar esses recusos para aferir o tempo de excução dos programas exibidos nas duas questões anteriores.
+
+A seguir ilustramos o tempo de execução dos algoritmos que apresentamos nas questões 16 e 17.
+
+
+
+QUESTÃO 16 - TEMPO DE EXECUÇÃO
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Função para comparar dois floats 
+
+//Esta função comp recebe dois ponteiros genéricos (void *) que são convertidos em ponteiros para floats (float *). Em //seguida, compara os valores apontados por esses ponteiros e retorna -1 se o primeiro for menor, 1 se o segundo for //menor e 0 se forem iguais.
+
+int comp(const void *a, const void *b) {
+    float float_a = *((const float *)a);
+    float float_b = *((const float *)b);
+
+    if (float_a < float_b) return -1;
+    if (float_a > float_b) return 1;
+    return 0;
+}
+
+
+int main() {
+    // Obtém o tempo inicial
+    clock_t start = clock();
+  int n;
+
+  printf("Digite a quantidade de valores float que deseja ordenar: ");
+  scanf("%d", &n);
+
+  // Aloca memória dinamicamente para armazenar os valores float
+  float *values = (float *)malloc(n * sizeof(float));
+
+  // Lê os valores float
+  printf("Digite %d valores float:\n", n);
+  for (int i = 0; i < n; i++) {
+      scanf("%f", &values[i]);
+  }
+
+  // Ordena os valores usando qsort
+  qsort(values, n, sizeof(float), comp);
+
+  // Apresenta os valores ordenados em ordem crescente
+  printf("Valores em ordem crescente:\n");
+  for (int i = 0; i < n; i++) {
+      printf("%.2f ", values[i]);
+  }
+  printf("\n");
+
+  // Libera a memória alocada
+  free(values);
+  
+    clock_t end = clock();
+
+    // Calcula o tempo de execução em segundos
+    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("Tempo de execução: %.6f segundos\n", time_spent);
+
+    return 0;
+}
+
+A execução do programa apresentou a seguinte saída
+
+Digite a quantidade de valores float que deseja ordenar: 3
+Digite 3 valores float:
+22
+36
+56
+Valores em ordem crescente:
+22.00 36.00 56.00 
+Tempo de execução: 0.000424 segundos
+
+
+
+QUESTÃO 17 - TEMPO DE EXECUÇÃO
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Função para comparar dois floats para qsort
+int compare(const void *a, const void *b) {  
+    const float *float_a = (const float *)a;
+    const float *float_b = (const float *)b;
+
+    if (*float_a < *float_b) return -1;
+    else if (*float_a > *float_b) return 1;
+    else return 0;
+}
+
+// Função para ler n valores float
+float* ler(int n) {
+    float *values = (float *)malloc(n * sizeof(float)); // Aloca memória dinamicamente
+    printf("Digite %d valores float:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &values[i]);
+    }
+
+    return values;
+}
+
+// Função para apresentar os valores em ordem crescente usando qsort
+void Imprime(float *values, int n) {
+    // Ordena os valores usando qsort
+    qsort(values, n, sizeof(float), compare);
+
+    // Apresenta os valores ordenados em ordem crescente
+    printf("Valores em ordem crescente:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", values[i]);
+    }
+    printf("\n");
+}
+
+
+
+int main() {
+    // Obtém o tempo inicial
+    clock_t start = clock();
+
+   int n;
+
+   printf("Digite a quantidade de valores float que deseja ordenar: ");
+   scanf("%d", &n);
+
+   float *values = ler(n);
+   if (values != NULL) {
+       Imprime(values, n);
+       free(values); // Libera a memória alocada
+   }
+
+
+    // Obtém o tempo final
+    clock_t end = clock();
+
+    // Calcula o tempo de execução em segundos
+    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+
+    printf("Tempo de execução: %.6f segundos\n", time_spent);
+
+    return 0;
+}
+
+A execução do programa apresentou a seguinte saída
+
+Digite a quantidade de valores float que deseja ordenar: 3
+Digite 3 valores float:
+21
+8
+65
+Valores em ordem crescente:
+8.00 21.00 65.00 
+Tempo de execução: 0.000401 segundos
 
 
 
@@ -1334,45 +1522,7 @@ Um usuário precisa implementar o controle de uma matriz de leds com 8 x 8 eleme
 
 <resposta da questao 24>
 
-#include <stdio.h>
-
-// Função para enviar o estado via porta serial
-void send(unsigned long estado) {
-    // Simulando o envio do estado
-    printf("Estado enviado via porta serial: %llu\n", estado);
-}
-
-int main() {
-    // Matriz de LEDs
-    unsigned char m[8][8] = {
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1},
-        {1, 0, 1, 0, 1, 0, 1, 0},
-        {0, 1, 0, 1, 0, 1, 0, 1}
-    };
-
-    // Variável para armazenar o estado de cada LED
-    unsigned long estado = 0;
-
-    // Codificação da matriz na variável de 64 bits
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            // Se o LED estiver aceso, definir o bit correspondente como 1
-            if (m[i][j] == 1) {
-                estado |= (1ULL << (i * 8 + j));
-            }
-        }
-    }
-
-    // Enviar o estado via porta serial
-    send(estado);
-
-    return 0;
-}
+Não consegui fazer!
 
 --------------------------------------------------------------------------------------------------------------------
 
