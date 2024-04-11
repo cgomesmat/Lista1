@@ -645,8 +645,7 @@ h)A expressão pf=aloha faz sentido. Nessa expressão, pf é um ponteiro para fl
 
 Questao 13:
 
-O que é memory leak? Procure 3 exemplos de programas em C que apresentem memory leak e
-explique o que acontece em cada um deles.
+O que é memory leak? Procure 3 exemplos de programas em C que apresentem memory leak e explique o que acontece em cada um deles.
 
 
 <resposta da questao 13>
@@ -716,17 +715,14 @@ int produto(int a, int b) {
     return a * b;
 }
 
-// Declaração  das funções
-int soma(int a, int b);
-int produto(int a, int b);
 
 int main() {
     int num1, num2;
     printf("Digite dois números inteiros: ");
-    scanf("%d %d", &num1, &num2);
+    scanf("%d %d", &num1, &num2); // Nessa linha os dois números digitados são lidos e levados para a memória
 
-    // Declaração dos ponteiros para funções
-    int (*funcaoSoma)(int, int) = soma;
+    // Declaração dos ponteiros para funções 
+    int (*funcaoSoma)(int, int) = soma; 
     int (*funcaoProduto)(int, int) = produto;
 
     // Chama as funções através dos ponteiros
@@ -745,58 +741,57 @@ int main() {
 
 Questao 15:
 
-Implemente em linguagem C uma função em um programa de computador que leia n valores do tipo float e os apresente em ordem crescente. Utilize alocação dinâmica de memória para
-realizar a tarefa.
+Implemente em linguagem C uma função em um programa de computador que leia n valores do tipo float e os apresente em ordem crescente. Utilize alocação dinâmica de memória para realizar a tarefa.
 
 <resposta da questao 15>
 
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>  //readFloats
 
-// Função para ler os valores e apresentá-los em ordem crescente
-void lerEOrdenarValores(int n) {
-    // Aloca dinamicamente um array para armazenar os valores
-    float *valores = (float *)malloc(n * sizeof(float));
-    // Lê os valores
-    printf("Digite os valores:\n");
+// Função para ler n valores float
+float *ler(int n) {
+    float *values = (float *)malloc(n * sizeof(float)); // Aloca memória dinamicamente
+    printf("Digite %d valores float:\n", n); 
     for (int i = 0; i < n; i++) {
-        scanf("%f", &valores[i]);
+        scanf("%f", &values[i]);
     }
+    return values;
+} 
 
-    // Algoritmo de ordenação - Bubble Sort
+// Função para ordenar os valores em ordem crescente usando a função Bubble Sort
+void bubbleSort(float *values, int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
-            if (valores[j] > valores[j + 1]) {
+            if (values[j] > values[j + 1]) {
                 // Troca os valores
-                float temp = valores[j];
-                valores[j] = valores[j + 1];
-                valores[j + 1] = temp;
+                float temp = values[j];
+                values[j] = values[j + 1];
+                values[j + 1] = temp;
             }
         }
     }
+}
 
-    // Apresenta os valores em ordem crescente
+// Função para apresentar os valores em ordem crescente   
+void Imprime(float *values, int n) {
     printf("Valores em ordem crescente:\n");
     for (int i = 0; i < n; i++) {
-        printf("%.2f ", valores[i]);
+        printf("%.2f ", values[i]);
     }
     printf("\n");
-
-    // Libera a memória alocada
-    free(valores);
 }
 
 int main() {
     int n;
-    printf("Digite a quantidade de valores a serem inseridos: ");
+    printf("Qual a quantidade de valores que você deseja ordenar: ");
     scanf("%d", &n);
 
-    lerEOrdenarValores(n);
-
+       float *values = ler(n);
+        bubbleSort(values, n);
+        Imprime(values, n);
+        free(values); // Libera a memória alocada
     return 0;
 }
-
 ----------------------------------------------------------------------------------------------------------------------
 
 Questao 16:
@@ -807,18 +802,143 @@ código, explicando o que faz cada uma das linhas.
 
 <resposta da questao 16>
 
-Não consegui fazer!
+A função qsort em C é usada para ordenar um array de elementos em ordem crescente ou decrescente. Ela é parte da biblioteca padrão de C (<stdlib.h>) e segue o algoritmo de classificação quicksort.
+
+A linha de comando pardrão associada à função qsort é:
+
+void qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *));
+
+onde:
+
+A função qsort em C é usada para ordenar um array de elementos em ordem crescente ou decrescente. Ela é parte da biblioteca padrão de C (<stdlib.h>) e segue o algoritmo de classificação quicksort, que é eficiente para a maioria dos casos práticos.
+
+Aqui está a assinatura da função qsort:
+
+void qsort(void *p, size_t n, size_t size, int (*comp)(const void *, const void *));
+
+Onde:
+
+1)p: É o ponteiro para o primeiro elemento do array a ser ordenado.
+2)n: É o número de elementos no array.
+3)size: É o tamanho de cada elemento do array, em bytes.
+4)comp: É um ponteiro para a função de comparação que determina a ordem dos elementos. Essa função recebe dois ponteiros const void * como argumentos e retorna um valor inteiro negativo se o primeiro argumento deve ser ordenado antes do segundo, um valor positivo se o segundo deve ser ordenado antes do primeiro e zero se os dois elementos são considerados iguais.
+
+A função qsort reorganiza os elementos do array base de acordo com a função de comparação fornecida. Após a execução da função, os elementos estarão ordenados em relação à comparação especificada.
+
+A seguir usamos a função qsort para implementar um programa que que leia n valores do tipo float e os apresente em ordem crescente
+
+const float *float_a = (const float *)a; e const float *float_b = (const float *)b;: Essas linhas convertem os ponteiros a e b (que são ponteiros genéricos do tipo void *) em ponteiros para floats.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Função para comparar dois floats 
+
+//Esta função comp recebe dois ponteiros genéricos (void *) que são convertidos em ponteiros para floats (float *). Em //seguida, compara os valores apontados por esses ponteiros e retorna -1 se o primeiro for menor, 1 se o segundo for //menor e 0 se forem iguais.
+
+int comp(const void *a, const void *b) {
+    float float_a = *((const float *)a);
+    float float_b = *((const float *)b);
+
+    if (float_a < float_b) return -1;
+    if (float_a > float_b) return 1;
+    return 0;
+}
+
+int main() {
+    int n;
+
+    printf("Digite a quantidade de valores float que deseja ordenar: ");
+    scanf("%d", &n);
+
+    // Aloca memória dinamicamente para armazenar os valores float
+    float *values = (float *)malloc(n * sizeof(float));
+    
+    // Lê os valores float
+    printf("Digite %d valores float:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &values[i]);
+    }
+
+    // Ordena os valores usando qsort
+    qsort(values, n, sizeof(float), comp);
+
+    // Apresenta os valores ordenados em ordem crescente
+    printf("Valores em ordem crescente:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", values[i]);
+    }
+    printf("\n");
+
+    // Libera a memória alocada
+    free(values);
+
+    return 0;
+}
+
+
+
 ----------------------------------------------------------------------------------------------------------------------
 
 Questao 17:
 
-Utilize a ideia do ponteiro para função pela função qsort() para implementar sua própria função de ordenação, mas que seja capaz de ordenar apenas inteiros do tipo int. Para isso, sua
-função deverá receber, entre outros argumentos, um ponteiro para a função de comparação que determinará como os elementos do array serão ordenados.
+Utilize a ideia do ponteiro para função pela função qsort() para implementar sua própria função de ordenação, mas que seja capaz de ordenar apenas inteiros do tipo int. Para isso, sua função deverá receber, entre outros argumentos, um ponteiro para a função de comparação que determinará como os elementos do array serão ordenados.
 
 
 <resposta da questao 17>
 
-Não consegui fazer!
+#include <stdio.h> 
+#include <stdlib.h>
+
+// Função para comparar dois floats para qsort
+int compare(const void *a, const void *b) {  
+    const float *float_a = (const float *)a;
+    const float *float_b = (const float *)b;
+
+    if (*float_a < *float_b) return -1;
+    else if (*float_a > *float_b) return 1;
+    else return 0;
+}
+
+// Função para ler n valores float
+float* ler(int n) {
+    float *values = (float *)malloc(n * sizeof(float)); // Aloca memória dinamicamente
+    printf("Digite %d valores float:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &values[i]);
+    }
+
+    return values;
+}
+
+// Função para apresentar os valores em ordem crescente usando qsort
+void Imprime(float *values, int n) {
+    // Ordena os valores usando qsort
+    qsort(values, n, sizeof(float), compare);
+
+    // Apresenta os valores ordenados em ordem crescente
+    printf("Valores em ordem crescente:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", values[i]);
+    }
+    printf("\n");
+}
+
+int main(){
+    int n;
+
+    printf("Digite a quantidade de valores float que deseja ordenar: ");
+    scanf("%d", &n);
+
+    float *values = ler(n);
+    if (values != NULL) {
+        Imprime(values, n);
+        free(values); // Libera a memória alocada
+    }
+
+    return 0;
+}
+
 
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -829,7 +949,47 @@ Procure na internet mecanismos que possibilitem medir tempos de execução de ro
 
 <resposta da questao 18>
 
-Não consegui fazer!
+Existem várias maneiras de medir o tempo de execução de rotinas computacionais em linguagem C. A seguir listamos algumas delas:
+
+1)Funções de Tempo Padrão: A biblioteca padrão de C fornece funções para medir o tempo, como clock() e time(). A função clock() retorna o número de ciclos de clock decorridos desde o início do programa, enquanto time() retorna o tempo atual em segundos desde 1º de janeiro de 1970.
+
+2)<sys/time.h>: Esta biblioteca fornece estruturas de dados como struct timeval e funções como gettimeofday() para obter tempos com precisão de microssegundos. Isso pode ser útil para medir tempos de execução mais precisos.
+
+3)<time.h>: A biblioteca de tempo padrão de C fornece a função clock_gettime(), que pode ser usada para medir tempos com precisão de nanossegundos. Isso requer incluir a biblioteca <time.h> e compilar com a opção -lrt.
+
+Exemplo usando a função clock:
+
+#include <stdio.h>
+#include <time.h>
+
+void minhaRotina() {
+    // Rotina que será medida
+    int i;
+    for (i = 0; i < 1000000; i++) {
+        // Algum trabalho a ser feito
+    }
+}
+
+int main() {
+    clock_t inicio, fim;
+    double tempoDecorrido;
+
+    inicio = clock();
+    minhaRotina();
+    fim = clock();
+
+    tempoDecorrido = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
+    printf("Tempo de execução: %f segundos\n", tempoDecorrido);
+
+    return 0;
+}
+
+A saída desse programa foi: Tempo de execução: 0.000002 segundos
+
+
+A seguir vamos usar esses recusos para aferir o tempo de excução dos programas exibidos nas duas questões anteriores.
+
+
 
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -1174,8 +1334,45 @@ Um usuário precisa implementar o controle de uma matriz de leds com 8 x 8 eleme
 
 <resposta da questao 24>
 
+#include <stdio.h>
 
-Não consegui fazer!
+// Função para enviar o estado via porta serial
+void send(unsigned long estado) {
+    // Simulando o envio do estado
+    printf("Estado enviado via porta serial: %llu\n", estado);
+}
+
+int main() {
+    // Matriz de LEDs
+    unsigned char m[8][8] = {
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 0, 1, 0},
+        {0, 1, 0, 1, 0, 1, 0, 1}
+    };
+
+    // Variável para armazenar o estado de cada LED
+    unsigned long estado = 0;
+
+    // Codificação da matriz na variável de 64 bits
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            // Se o LED estiver aceso, definir o bit correspondente como 1
+            if (m[i][j] == 1) {
+                estado |= (1ULL << (i * 8 + j));
+            }
+        }
+    }
+
+    // Enviar o estado via porta serial
+    send(estado);
+
+    return 0;
+}
 
 --------------------------------------------------------------------------------------------------------------------
 
