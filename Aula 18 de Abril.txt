@@ -1,0 +1,94 @@
+Codeblocs
+Replit
+gt creator
+
+Arquivo main.cpp  --> Uso da classe vetor2d
+
+Criar maais dois sarquivos:
+
+vetor2d.cpp  --> implementação
+
+
+vetor2d.h --> Declaração
+
+Em todos os arquvis .h em C ou C++  aparecem os comandos #ifndef VETOR2D_H     #define VETOR2D_H
+
+matriz.f
+
+class Matriz{ 
+;
+};
+
+
+---------------------------------------------------------------------------
+vetor.h
+
+class vetor{
+
+;
+
+};
+
+---------------------------------------------------------------------------
+main.cpp
+#include"vetor.h"
+#include "matriz.h"
+vetor V, x;
+Matriz m;
+x=m*v;
+
+
+*******************************************************
+float x
+#define PI 3.14
+x=PI
+
+#define --> Cria simbolos que serão usados durante a execução do código
+
+
+***************************************************
+
+Em arquivos.h você deve incluir os comandos
+
+#ifndef VETOR2D_H
+#define 
+
+
+**************************************
+
+Nos arquivos .cpp so devem aparecer os métodos da classe.
+
+O código vetor2d::setX(float)  associa setX a classe vetor2d
+
+
+******************************************
+
+No arquio.cpp as implementações das funções.
+
+No arquivo.h ficam as declarações dos métodos.
+
+
+
+**********************************************
+
+https://www.freecodecamp.org/portuguese/news/o-manual-do-iniciante-em-c-aprenda-o-basico-sobre-a-linguagem-de-programacao-c-em-apenas-algumas-horas/
+
+
+*********************************************
+
+Sobrecarga de Métodos
+
+Usar o memso nome da função para executar coisas diferentes.
+vetor2d produto(flat a);
+float produto(vetor2d v);
+
+
+
+
+
+
+
+
+
+
+
